@@ -1,16 +1,26 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:fragment="headerfiles">
-    <meta charset="UTF-8"/>
-    <link th:href="@{/css/styles.css}" rel="stylesheet">
+<head >
+    <div th:fragment="head">
+        <meta charset="UTF-8"/>
+<!--        <link th:href="@{/css/styles.css}" rel="stylesheet">-->
+    </div>
+
 </head>
 
 <body>
 
-<nav th:fragment="header">
+<div th:fragment="header">
     <a th:href="@{/}">Index Page</a>
+    <a th:href="@{/mainHall}">Main Hall</a>
     <a th:href="@{/homePage}">Home Page </a>
-</nav>
+    <a th:href="@{/admin/Houses}">Houses </a>
+    <a th:href="@{/admin/Courses}">Courses </a>
+    <a th:href="@{/admin/Users}">Users </a>
+
+
+
+</div>
 
 <h2 th:fragment="common">Common knowledge</h2>
 
