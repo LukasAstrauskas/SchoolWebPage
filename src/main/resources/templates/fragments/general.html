@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="headerfiles">
+    <meta charset="UTF-8"/>
+    <link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+
+<body>
+
+<nav th:fragment="header">
+    <a th:href="@{/}">Index Page</a>
+    <a th:href="@{/homePage}">Home Page </a>
+</nav>
+
+<h2 th:fragment="common">Common knowledge</h2>
+
+<div class="test1">
+    Fragment class call!
+</div>
+
+<div id="id1">
+    Fragment ID call!
+</div>
+
+<div th:fragment="formField(value, size)">
+    <div>
+        <input type="text" th:value="${value}" th:size="${size}">
+    </div>
+</div>
+
+<footer th:fragment="footer">
+    <a th:href="@{/fragments}">Fragments Index</a> |
+    <a th:href="@{/markup}">Markup inclussion</a> |
+    <a th:href="@{/params}">Fragment params</a> |
+    <a th:href="@{/other}">Other</a>
+</footer>
+
+</body>
+</html>
