@@ -21,6 +21,18 @@
                 <td>Description:</td>
                 <td><input type="text" th:field="*{description}"></td>
             </tr>
+
+            <tr>
+                <td>Teacher:</td>
+                <td>
+                    <select type="number" th:field="*{teacher.id}">
+                        <option th:value="0">Select Teacher</option>
+                        <option th:each="teacher : ${teachers}" th:value="${teacher.id}"
+                                th:text="${teacher.name}+' '+${teacher.surname}"></option>
+                    </select>
+                </td>
+            </tr>
+
             <tr>
                 <td>Credits:</td>
                 <td><input type="number" th:field="*{credits}"></td>
@@ -40,6 +52,7 @@
             <th>ID</th>
             <th>Name</th>
             <th>Description</th>
+            <th>Teacher</th>
             <th>Credits</th>
             <th>Actions</th>
         </tr>
@@ -50,6 +63,7 @@
             <td th:text="${course.id}"></td>
             <td th:text="${course.name}"></td>
             <td th:text="${course.description}"></td>
+            <td th:text="${course.teacher}==null ? 'No Teacher' : ${course.teacher.name}+' '+${course.teacher.surname}" ></td>
             <td th:text="${course.credits}"></td>
             <td>
                 <a th:href="@{/admin/course-info/{id}(id=${course.id})}">Info</a>

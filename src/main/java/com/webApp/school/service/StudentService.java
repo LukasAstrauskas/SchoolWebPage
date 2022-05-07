@@ -1,5 +1,6 @@
 package com.webApp.school.service;
 
+import com.webApp.school.model.Course;
 import com.webApp.school.model.EnrolCourse;
 import com.webApp.school.model.House;
 import com.webApp.school.model.Student;
@@ -14,11 +15,14 @@ public class StudentService implements MyService<Student, Long> {
 
     private final StudentRepository studentRepository;
     private final HouseService houseService;
+    private final CourseService courseService;
 
     public StudentService(StudentRepository studentRepository,
-                          HouseService houseService) {
+                          HouseService houseService,
+                          CourseService courseService) {
         this.studentRepository = studentRepository;
         this.houseService = houseService;
+        this.courseService = courseService;
     }
 
 
@@ -74,7 +78,14 @@ public class StudentService implements MyService<Student, Long> {
         studentRepository.save(student);
     }
 
-    public void studentEnrolCourse(Long studentID, Long courseID) {
-//        new EnrolCourse()
+
+    public List<Student> filterByCourse(Long courseID) {
+        Course course = courseService.getById(courseID);
+        List<Student> studentsInCourse = course.getEnrolCourses().stream()
+                .map(EnrolCourse::getStudent)
+                .collect(Collectors.toList());
+        List<Student> students = getAll();
+        students.removeAll(studentsInCourse);
+        return students;
     }
 }

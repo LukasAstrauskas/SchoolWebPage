@@ -34,7 +34,6 @@ public class UserController {
 
     @GetMapping("/info-user")
     public String infoUser(@ModelAttribute( "id") Long id, Model model) {
-        System.out.println(id);
         model.addAttribute("user", userService.getById(id));
         return "info";
     }

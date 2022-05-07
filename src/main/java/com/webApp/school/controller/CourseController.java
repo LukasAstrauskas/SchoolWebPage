@@ -3,14 +3,13 @@ package com.webApp.school.controller;
 
 import com.webApp.school.model.Course;
 import com.webApp.school.service.CourseService;
+import com.webApp.school.service.EnrolCourseService;
 import com.webApp.school.service.StudentService;
+import com.webApp.school.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -18,12 +17,17 @@ public class CourseController {
 
     private final CourseService courseService;
     private final StudentService studentService;
+    private final EnrolCourseService enrolCourseService;
+    private final TeacherService teacherService;
 
     @Autowired
     public CourseController(CourseService courseService,
-                            StudentService studentService) {
+                            StudentService studentService,
+                            EnrolCourseService enrolCourseService, TeacherService teacherService) {
         this.courseService = courseService;
         this.studentService = studentService;
+        this.enrolCourseService = enrolCourseService;
+        this.teacherService = teacherService;
     }
 
     @GetMapping(value = {"/Courses", "/Courses/{id}"})
@@ -34,6 +38,7 @@ public class CourseController {
             model.addAttribute("course", courseService.getById(id));
         }
         model.addAttribute("courses", courseService.getAll());
+        model.addAttribute("teachers", teacherService.getAll());
         return "courses";
     }
 
@@ -50,26 +55,27 @@ public class CourseController {
     }
 
     @GetMapping("/course-info/{id}")
-    public String houseInfo(@PathVariable("id") Long id, Model model) {
-        Course course = courseService.getById(id);
-        model.addAttribute("course", courseService.getById(id));
+    public String houseInfo(@PathVariable("id") Long courseID, Model model) {
+        model.addAttribute("course", courseService.getById(courseID));
 //        TODO filter studs enrolled in course in course
-        model.addAttribute("studList", studentService.getAll());
+        Course course = courseService.getById(courseID);
+        model.addAttribute("studList", studentService.filterByCourse(courseID));
         return "course-info";
     }
 
     @GetMapping("/studentToCourse")
-    public String addStudent(@RequestParam("houseID") Long courseID,
+    public String studentToCourse(@RequestParam("courseID") Long courseID,
                              @RequestParam("studentID") Long studentID) {
-        studentService.studentEnrolCourse(studentID, courseID);
+        enrolCourseService.addStudentToCourse(studentID, courseID);
         return "redirect:/admin/course-info/" + courseID;
     }
 
-//    @GetMapping("/removeFromCourse")
-//    public String removeFromHouse(@RequestParam("houseID") Long houseID,
-//                                  @RequestParam("studentID") Long studentID) {
+    @GetMapping("/removeFromCourse")
+    public String removeFromCourse(@RequestParam("courseID") Long courseID,
+                                  @RequestParam("enrID") Long enrID) {
 //        studentService.removeFromHouse(studentID);
-//        return "redirect:/admin/info-house" + "?id=" + houseID;
-//    }
+        enrolCourseService.deleteById(enrID);
+        return "redirect:/admin/course-info/" + courseID;
+    }
 
 }

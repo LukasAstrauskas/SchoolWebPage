@@ -65,7 +65,6 @@
             <td>
                 <a th:href="@{${task.reference}}" th:title="${task.reference}">Link</a>
             </td>
-<!--            <td th:text="${task.course.name}"></td>-->
             <td th:text="${task.course}==null ? 'No Course' : ${task.course.name}" ></td>
             <td>
                 <a th:href="@{/Tasks/{id}(id=${task.id})}">Update</a>

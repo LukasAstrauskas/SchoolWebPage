@@ -22,6 +22,9 @@ public class CourseService implements MyService<Course, Long> {
 
     @Override
     public void save(Course course) {
+        if (course.getTeacher().getId() == 0) {
+            course.setTeacher(null);
+        }
         if (course.getId() != null) {
             update(course);
         } else {
@@ -44,6 +47,7 @@ public class CourseService implements MyService<Course, Long> {
         Course toUpdate = getById(courseNewInfo.getId());
         toUpdate.setName(courseNewInfo.getName());
         toUpdate.setDescription(courseNewInfo.getDescription());
+        toUpdate.setTeacher(courseNewInfo.getTeacher());
         toUpdate.setCredits(courseNewInfo.getCredits());
         toUpdate.setStartDate(courseNewInfo.getStartDate());
         toUpdate.setEndDate(courseNewInfo.getEndDate());
