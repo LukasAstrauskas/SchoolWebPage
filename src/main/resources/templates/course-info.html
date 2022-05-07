@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:insert="fragments/general.html :: head">
+    <title>Add User</title>
+</head>
+<body>
+<header th:insert="fragments/general.html :: header">
+</header>
+
+
+<article>
+
+    <br>
+
+    <table border="1">
+        <tr>
+            <td>ID:</td>
+            <td th:text="${course.id}"></td>
+        </tr>
+        <tr>
+            <td>Name:</td>
+            <td th:text="${course.name}"></td>
+        </tr>
+        <tr>
+            <td>Description:</td>
+            <td th:text="${course.description}"></td>
+        </tr>
+    </table>
+
+    <br>
+
+        <table border="2">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student, aStat : ${studList}">
+                <td th:text="${aStat.count}"></td>
+                <td th:text="${student.name}"></td>
+                <td th:text="${student.surname}"></td>
+                <td>
+                    <form th:action="@{/admin/studentToHouse}">
+                        <input type="hidden" th:name="houseID" th:value="${house.id}">
+                        <input type="hidden" th:name="studentID" th:value="${student.id}">
+                        <input type="submit" value="Add to House">
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <br>
+
+        <table border="2">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Surname</th>
+<!--                <th>Actions</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="stud, status : ${course.enrolCourses}">
+                <td th:text="${status.count}"></td>
+                <td th:text="${stud.name}"></td>
+                <td th:text="${stud.surname}"></td>
+<!--                <td>-->
+<!--                    <form th:action="@{/admin/removeFromHouse}">-->
+<!--                        <input type="hidden" th:name="houseID" th:value="${house.id}">-->
+<!--                        <input type="hidden" th:name="studentID" th:value="${stud.id}">-->
+<!--                        <input type="submit" value="Remove from House">-->
+<!--                    </form>-->
+<!--                </td>-->
+            </tr>
+            </tbody>
+        </table>
+
+</article>
+
+<footer></footer>
+</body>
+</html>

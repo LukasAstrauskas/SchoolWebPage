@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head th:insert="fragments/general.html :: head">
+    <title>Add User</title>
+</head>
+<body>
+<header th:insert="fragments/general.html :: header">
+</header>
+
+
+<article>
+    <br>
+    <form action="#" th:action="@{/admin/save-house}" th:object="${house}" method="post">
+        <table border="1">
+            <input type="hidden" th:field="*{id}">
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" th:field="*{name}"></td>
+            </tr>
+            <tr>
+                <td>House Head:</td>
+                <td>
+                    <select type="number" th:field="*{head.id}">
+                        <option th:value="0">Select Teacher</option>
+                        <option th:each="head : ${teachers}" th:value="${head.id}"
+                                th:text="${head.name}+' '+${head.surname}"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Submit"/></td>
+            </tr>
+        </table>
+    </form>
+
+    <br>
+
+    <table border="2">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>House Head</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="house, aStat : ${houses}">
+            <td th:text="${aStat.count}"></td>
+            <td th:text="${house.id}"></td>
+            <td th:text="${house.name}"></td>
+            <td th:text="${house.head}==null ? 'No Head' : ${house.head.name}+' '+${house.head.surname}" ></td>
+            <td>
+                <form th:action="@{/admin/info-house}" >
+                    <button type="submit" th:name="id" th:value="${house.id}">House Info</button>
+                </form>
+                <a th:href="@{/admin/Houses/{id}(id=${house.id})}">Update</a>
+                <a th:href="@{/admin/delete-house/{id}(id=${house.id})}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <br>
+
+
+</article>
+
+<footer></footer>
+</body>
+</html>

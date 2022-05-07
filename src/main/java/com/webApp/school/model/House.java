@@ -21,7 +21,7 @@ public class House {
     private String name;
 
     @OneToOne
-    @JoinColumn(name = "head_uuid")
+    @JoinColumn(name = "head_id")
     private Teacher head;
 
     @OneToMany(mappedBy = "house")

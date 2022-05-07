@@ -18,7 +18,7 @@ import java.util.List;
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     private String name;
 
@@ -33,13 +33,13 @@ public class Course {
     private int credits;
 
     @ManyToOne
-    @JoinColumn(name = "teacher_uuid")
+    @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    @OneToMany
+    @OneToMany(mappedBy = "course")
     private List<Task> tasks;
 
-    @OneToMany
+    @OneToMany(mappedBy = "course")
     private List<EnrolCourse> enrolCourses;
 
 

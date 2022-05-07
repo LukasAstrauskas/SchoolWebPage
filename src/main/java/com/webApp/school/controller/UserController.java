@@ -2,7 +2,6 @@ package com.webApp.school.controller;
 
 import com.webApp.school.model.User;
 import com.webApp.school.service.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-//@RequestMapping("/user")
+@RequestMapping("/admin")
 public class UserController {
 
     private final UserService userService;
@@ -20,28 +19,37 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
-    public String getAllUsers(Model model) {
-        model.addAttribute("userList", userService.getAll());
+
+    @GetMapping(value = {"/Users", "/Users/{id}"})
+    public String users(@PathVariable(required = false) Long id, Model model) {
+        if (id == null) {
+            model.addAttribute("user", new User());
+        } else {
+            model.addAttribute("user", userService.getById(id));
+//            return "forward:/admin/info-user";
+        }
+        model.addAttribute("users", userService.getAll());
         return "users";
     }
 
-
-
-    @GetMapping("/")
-    public String indexPage() {
-        return "index";
-    }
-
-    @GetMapping("/mainHall")
-    public String homePage() {
-        return "home";
-    }
-
-    @GetMapping("/home/{id}")
-    public String singlePathVariable(@PathVariable("id") int id) {
+    @GetMapping("/info-user")
+    public String infoUser(@ModelAttribute( "id") Long id, Model model) {
         System.out.println(id);
-        return "home";
+        model.addAttribute("user", userService.getById(id));
+        return "info";
     }
+
+    @PostMapping("/save-user")
+    public String saveUser(@ModelAttribute("user") User user) {
+        userService.save(user);
+        return "redirect:/admin/Users";
+    }
+
+    @GetMapping("/delete-user/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        userService.deleteById(id);
+        return "redirect:/admin/Users";
+    }
+
 
 }

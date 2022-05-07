@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements MyService<User, Long> {
@@ -25,23 +25,21 @@ public class UserService implements MyService<User, Long> {
 
     @Override
     public void save(User user) {
-        System.out.println("Got user: "+user.getName()+" "+user.getId());
         user.setEmail(user.getEmail().toLowerCase());
         if (user.getId() != null) {
-            System.out.println(user.getId()+" "+user.getName());
             update(user);
         } else {
             User userToSave;
 //        TODO generate password
             String password = "pass";
             switch (user.getRole()) {
-                case "ROLE_ADMIN":
+                case "ADMIN":
                     userToSave = new Admin(user, password);
                     break;
-                case "ROLE_STUDENT":
+                case "STUDENT":
                     userToSave = new Student(user, password);
                     break;
-                case "ROLE_TEACHER":
+                case "TEACHER":
                     userToSave = new Teacher(user, password);
                     break;
                 default:
@@ -65,7 +63,7 @@ public class UserService implements MyService<User, Long> {
     public void update(User userWithNewInfo) {
         User toUpdate = getById(userWithNewInfo.getId());
 
-        System.out.println(toUpdate.getId()+" "+toUpdate.getName());
+        System.out.println(toUpdate.getId() + " " + toUpdate.getName());
 
         toUpdate.setName(userWithNewInfo.getName());
         toUpdate.setSurname(userWithNewInfo.getSurname());
@@ -76,5 +74,12 @@ public class UserService implements MyService<User, Long> {
 
     public void userMeth() {
 
+    }
+
+    public List<User> getAllTeachers() {
+
+        return getAll().stream().filter(user ->
+                    user.getRole().equals("TEACHER")
+        ).collect(Collectors.toList());
     }
 }

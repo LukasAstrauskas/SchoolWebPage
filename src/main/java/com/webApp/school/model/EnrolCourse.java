@@ -21,7 +21,7 @@ public class EnrolCourse {
     private String evaluation;
 
     @ManyToOne
-    @JoinColumn(name = "student_uuid")
+    @JoinColumn(name = "student_id")
     private Student student;
 
 

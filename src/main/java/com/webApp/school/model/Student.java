@@ -18,10 +18,10 @@ public class Student extends User {
     @JoinColumn(name = "house_id")
     private House house;
 
-    @OneToMany
+    @OneToMany(mappedBy = "student")
     private List<EnrolTask> enrolTasks;
 
-    @OneToMany
+    @OneToMany(mappedBy = "student")
     private List<EnrolCourse> enrolCourses;
 
     public Student(User user, String password) {

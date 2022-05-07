@@ -22,7 +22,11 @@ public class CourseService implements MyService<Course, Long> {
 
     @Override
     public void save(Course course) {
-        courseRepository.save(course);
+        if (course.getId() != null) {
+            update(course);
+        } else {
+            courseRepository.save(course);
+        }
     }
 
     @Override

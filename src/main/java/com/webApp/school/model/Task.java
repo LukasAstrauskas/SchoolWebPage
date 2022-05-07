@@ -27,7 +27,7 @@ public class Task {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @OneToMany
+    @OneToMany(mappedBy = "task")
     private List<EnrolTask> enrolTasks;
 
 }

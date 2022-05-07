@@ -1,12 +1,13 @@
 package com.webApp.school.service;
 
-import com.webApp.school.model.Course;
 import com.webApp.school.model.House;
 import com.webApp.school.repository.HouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class HouseService implements MyService<House, Long> {
 
     private final HouseRepository houseRepository;
@@ -23,7 +24,11 @@ public class HouseService implements MyService<House, Long> {
 
     @Override
     public void save(House house) {
-        houseRepository.save(house);
+        if (house.getId() != null) {
+            update(house);
+        } else {
+            houseRepository.save(house);
+        }
     }
 
     @Override
@@ -40,7 +45,11 @@ public class HouseService implements MyService<House, Long> {
     public void update(House houseNewInfo) {
         House toUpdate = getById(houseNewInfo.getId());
         toUpdate.setName(houseNewInfo.getName());
-        toUpdate.setHead(houseNewInfo.getHead());
+        if (houseNewInfo.getHead().getId() == 0) {
+            toUpdate.setHead(null);
+        } else {
+            toUpdate.setHead(houseNewInfo.getHead());
+        }
         houseRepository.save(toUpdate);
     }
 

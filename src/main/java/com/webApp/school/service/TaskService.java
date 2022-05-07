@@ -24,9 +24,12 @@ public class TaskService implements MyService<Task, Long> {
 
     @Override
     public void save(Task task) {
+         if (task.getCourse().getId() == 0){
+             task.setCourse(null);
+         }
         taskRepository.save(task);
     }
-//
+
     @Override
     public Task getById(Long aLong) {
         return taskRepository.getById(aLong);

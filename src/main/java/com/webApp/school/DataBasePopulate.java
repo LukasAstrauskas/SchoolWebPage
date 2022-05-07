@@ -1,7 +1,6 @@
 package com.webApp.school;
 
 
-import com.webApp.school.model.*;
 import com.webApp.school.service.CourseService;
 import com.webApp.school.service.TaskService;
 import com.webApp.school.service.UserService;
@@ -9,7 +8,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class DataBasePopulate implements ApplicationListener<ContextRefreshedEvent> {
 
     private final UserService userService;

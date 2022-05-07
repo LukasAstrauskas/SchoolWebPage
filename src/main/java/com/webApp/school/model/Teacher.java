@@ -16,6 +16,9 @@ import java.util.List;
 @NoArgsConstructor
 public class Teacher extends User {
 
+    @OneToOne(mappedBy = "head")
+    private House house;
+
     @OneToMany(mappedBy = "teacher")
     private List<Course> courses;
 

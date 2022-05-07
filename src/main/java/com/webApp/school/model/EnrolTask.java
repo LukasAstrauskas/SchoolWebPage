@@ -22,7 +22,7 @@ public class EnrolTask {
     private String comments;
 
     @ManyToOne
-    @JoinColumn(name = "student_uuid")
+    @JoinColumn(name = "student_id")
     private Student student;
 
 
