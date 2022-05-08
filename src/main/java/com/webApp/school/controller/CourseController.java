@@ -57,8 +57,6 @@ public class CourseController {
     @GetMapping("/course-info/{id}")
     public String houseInfo(@PathVariable("id") Long courseID, Model model) {
         model.addAttribute("course", courseService.getById(courseID));
-//        TODO filter studs enrolled in course in course
-        Course course = courseService.getById(courseID);
         model.addAttribute("studList", studentService.filterByCourse(courseID));
         return "course-info";
     }
@@ -73,7 +71,7 @@ public class CourseController {
     @GetMapping("/removeFromCourse")
     public String removeFromCourse(@RequestParam("courseID") Long courseID,
                                   @RequestParam("enrID") Long enrID) {
-//        studentService.removeFromHouse(studentID);
+//        unlinking student from course
         enrolCourseService.deleteById(enrID);
         return "redirect:/admin/course-info/" + courseID;
     }

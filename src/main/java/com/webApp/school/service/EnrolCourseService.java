@@ -1,8 +1,6 @@
 package com.webApp.school.service;
 
-import com.webApp.school.model.Course;
-import com.webApp.school.model.EnrolCourse;
-import com.webApp.school.model.Student;
+import com.webApp.school.model.*;
 import com.webApp.school.repository.EnrolCourseRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +10,16 @@ import java.util.List;
 public class EnrolCourseService implements MyService<EnrolCourse, Long> {
 
     private final EnrolCourseRepository enrolCourseRepository;
+    private final EnrolTaskService enrolTaskService;
     private final StudentService studentService;
     private final CourseService courseService;
 
     public EnrolCourseService(EnrolCourseRepository enrolCourseRepository,
+                              EnrolTaskService enrolTaskService,
                               StudentService studentService,
                               CourseService courseService) {
         this.enrolCourseRepository = enrolCourseRepository;
+        this.enrolTaskService = enrolTaskService;
         this.studentService = studentService;
         this.courseService = courseService;
     }
@@ -39,8 +40,12 @@ public class EnrolCourseService implements MyService<EnrolCourse, Long> {
         return enrolCourseRepository.getById(aLong);
     }
 
+    //    unlink student from course
     @Override
     public void deleteById(Long aLong) {
+//        unlink tasks from student
+        enrolTaskService.unlinkTasksFromStudent(getById(aLong));
+//      unlink student from course
         enrolCourseRepository.deleteById(aLong);
     }
 
@@ -52,6 +57,9 @@ public class EnrolCourseService implements MyService<EnrolCourse, Long> {
     public void addStudentToCourse(Long studentID, Long courseID) {
         Student student = studentService.getById(studentID);
         Course course = courseService.getById(courseID);
+// making student-course conection entity
         save(new EnrolCourse(student, course));
+// add course tasks to student
+        enrolTaskService.addTasksToStudent(student, course.getTasks());
     }
 }

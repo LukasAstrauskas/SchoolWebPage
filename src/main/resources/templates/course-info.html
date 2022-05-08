@@ -27,13 +27,14 @@
         </tr>
         <tr>
             <td>Teacher:</td>
-            <td th:text="${course.teacher}==null ? 'No Teacher' : ${course.teacher.name}+' '+${course.teacher.surname}" ></td>
+            <td th:text="${course.teacher}==null ? 'No Teacher' : ${course.teacher.name}+' '+${course.teacher.surname}"></td>
         </tr>
     </table>
 
     <br>
 
     <table border="2">
+        <caption >Free Students (<b th:text="${studList.size}" ></b>)</caption>
         <thead>
         <tr>
             <th>#</th>
@@ -61,6 +62,7 @@
     <br>
 
     <table border="2">
+        <caption >Students In Course (<b th:text="${course.enrolCourses.size}" >lo</b>)</caption>
         <thead>
         <tr>
             <th>#</th>
@@ -89,6 +91,7 @@
     <br>
 
     <table border="2">
+        <caption >Tasks (<b th:text="${course.tasks.size}" ></b>) </caption>
         <thead>
         <tr>
             <th>#</th>
