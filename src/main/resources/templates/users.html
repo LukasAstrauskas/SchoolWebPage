@@ -52,7 +52,6 @@
             <th>Name</th>
             <th>Surname</th>
             <th>Email</th>
-            <!--            <th>House</th>-->
             <th>Role</th>
             <th>Actions</th>
         </tr>
@@ -64,12 +63,18 @@
             <td th:text="${user.name}"></td>
             <td th:text="${user.surname}"></td>
             <td th:text="${user.email}"></td>
-            <!--            <td th:text="${user.house}"></td>-->
             <td th:text="${user.role}"></td>
             <td>
-                <form th:action="@{/admin/info-user}" >
-                    <button type="submit" th:name="id" th:value="${user.id}">User Info</button>
+                <form th:action="@{/admin/info-admin}" th:if="${user.role}=='ADMIN'" >
+                    <button type="submit" th:name="id" th:value="${user.id}">Admin Info</button>
                 </form>
+                <form th:action="@{/admin/info-teacher}" th:if="${user.role}=='TEACHER'" >
+                    <button type="submit" th:name="id" th:value="${user.id}">Teacher Info</button>
+                </form>
+                <form th:action="@{/admin/info-student}" th:if="${user.role}=='STUDENT'" >
+                    <button type="submit" th:name="id" th:value="${user.id}">Student Info</button>
+                </form>
+
                 <button><a th:href="@{/admin/Users/{id}(id=${user.id})}">Update</a></button>
                 <button><a th:href="@{/admin/delete-user/{id}(id=${user.id})}">Delete</a></button>
             </td>

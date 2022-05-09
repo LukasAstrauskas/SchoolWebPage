@@ -33,10 +33,13 @@ public class UserController {
     }
 
     @GetMapping("/info-user")
-    public String infoUser(@ModelAttribute( "id") Long id, Model model) {
-        model.addAttribute("user", userService.getById(id));
-        return "info";
+    public String infoUser(@RequestParam( "id") Long id, Model model) {
+        User user = userService.getById(id);
+        model.addAttribute("user", user);
+        return "user-info";
     }
+
+
 
     @PostMapping("/save-user")
     public String saveUser(@ModelAttribute("user") User user) {

@@ -11,10 +11,12 @@ import java.util.List;
 public class TaskService implements MyService<Task, Long> {
 
     private final TaskRepository taskRepository;
+    private final EnrolTaskService enrolTaskService;
 
     @Autowired
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, EnrolTaskService enrolTaskService) {
         this.taskRepository = taskRepository;
+        this.enrolTaskService = enrolTaskService;
     }
 
     @Override
@@ -24,10 +26,15 @@ public class TaskService implements MyService<Task, Long> {
 
     @Override
     public void save(Task task) {
-         if (task.getCourse().getId() == 0){
-             task.setCourse(null);
-         }
-        taskRepository.save(task);
+        if (task.getCourse().getId() == 0) {
+            task.setCourse(null);
+        }
+        if (task.getId() != null){
+            update(task);
+        } else {
+            taskRepository.save(task);
+            enrolTaskService.addTaskToStudents(task, task.getCourse().getId());
+        }
     }
 
     @Override
@@ -37,6 +44,7 @@ public class TaskService implements MyService<Task, Long> {
 
     @Override
     public void deleteById(Long aLong) {
+//        enrolTaskService.unlinkTaskFromStudents(getById(aLong));
         taskRepository.deleteById(aLong);
     }
 

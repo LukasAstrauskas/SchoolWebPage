@@ -8,15 +8,17 @@ import com.webApp.school.repository.EnrolTaskRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class EnrolTaskService implements MyService<EnrolTask, Long> {
 
     private final EnrolTaskRepository enrolTaskRepository;
+    private final CourseService courseService;
 
-    public EnrolTaskService(EnrolTaskRepository enrolTaskRepository) {
+    public EnrolTaskService(EnrolTaskRepository enrolTaskRepository,
+                            CourseService courseService) {
         this.enrolTaskRepository = enrolTaskRepository;
+        this.courseService = courseService;
     }
 
     @Override
@@ -67,4 +69,11 @@ public class EnrolTaskService implements MyService<EnrolTask, Long> {
                 .forEach(enrolTask -> deleteById(enrolTask.getId()));
     }
 
+    public void addTaskToStudents(Task task, Long courseID) {
+        courseService.getById(courseID).getEnrolCourses().stream()
+                .forEach(enrolCourse -> {
+                    Student student = enrolCourse.getStudent();
+                    save(new EnrolTask(student, task));
+                });
+    }
 }

@@ -27,7 +27,7 @@ public class Task {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @OneToMany(mappedBy = "task")
+    @OneToMany(mappedBy = "task", cascade = {CascadeType.ALL})
     private List<EnrolTask> enrolTasks;
 
 }

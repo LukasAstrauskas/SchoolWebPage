@@ -62,24 +62,10 @@ public class UserService implements MyService<User, Long> {
     @Override
     public void update(User userWithNewInfo) {
         User toUpdate = getById(userWithNewInfo.getId());
-
-        System.out.println(toUpdate.getId() + " " + toUpdate.getName());
-
         toUpdate.setName(userWithNewInfo.getName());
         toUpdate.setSurname(userWithNewInfo.getSurname());
         toUpdate.setEmail(userWithNewInfo.getEmail());
         toUpdate.setRole(userWithNewInfo.getRole());
         userRepository.save(toUpdate);
-    }
-
-    public void userMeth() {
-
-    }
-
-    public List<User> getAllTeachers() {
-
-        return getAll().stream().filter(user ->
-                    user.getRole().equals("TEACHER")
-        ).collect(Collectors.toList());
     }
 }

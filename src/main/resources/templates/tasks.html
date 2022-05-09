@@ -29,7 +29,7 @@
                 <td>In Course:</td>
                 <td>
                     <select type="number" th:field="*{course.id}">
-                        <option th:value="0">Select Course</option>
+<!--                        <option th:value="0">Select Course</option>-->
                         <option th:each="course : ${courses}" th:value="${course.id}"
                                 th:text="${course.name}"></option>
                     </select>
@@ -45,6 +45,7 @@
     <br>
 
     <table border="2">
+        <caption><b>Tasks</b></caption>
         <thead>
         <tr>
             <th>#</th>
