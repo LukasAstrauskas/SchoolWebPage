@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table
@@ -24,6 +25,8 @@ public class EnrolCourse {
     @JoinColumn(name = "student_id")
     private Student student;
 
+    @OneToMany(mappedBy = "enrolCourse", cascade = {CascadeType.ALL})
+    private List<EnrolTask> enrolTasks;
 
     @ManyToOne
     @JoinColumn(name = "course_id")

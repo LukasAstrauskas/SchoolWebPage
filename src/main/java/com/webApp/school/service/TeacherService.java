@@ -1,9 +1,6 @@
 package com.webApp.school.service;
 
-import com.webApp.school.model.Admin;
-import com.webApp.school.model.Student;
-import com.webApp.school.model.Teacher;
-import com.webApp.school.model.User;
+import com.webApp.school.model.*;
 import com.webApp.school.repository.TeacherRepository;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +23,8 @@ public class TeacherService implements MyService<Teacher, Long> {
     }
 
     @Override
-    public void save(Teacher teacher) {
-        teacherRepository.save(teacher);
+    public Teacher save(Teacher teacher) {
+      return   teacherRepository.save(teacher);
     }
 
 

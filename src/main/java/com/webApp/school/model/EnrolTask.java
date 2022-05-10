@@ -21,18 +21,18 @@ public class EnrolTask {
 
     private String comments;
 
+
     @ManyToOne
-    @JoinColumn(name = "student_id")
-    private Student student;
+    @JoinColumn(name = "enrol_course_id")
+    private EnrolCourse enrolCourse;
 
 
     @ManyToOne
     @JoinColumn(name = "task_id")
     private Task task;
 
-    public EnrolTask(Student student, Task task) {
-        this.student = student;
+    public EnrolTask(EnrolCourse enrolCourse, Task task) {
+        this.enrolCourse = enrolCourse;
         this.task = task;
-        this.status = false;
     }
 }

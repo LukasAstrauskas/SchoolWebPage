@@ -30,9 +30,11 @@ public class EnrolCourseService implements MyService<EnrolCourse, Long> {
     }
 
     @Override
-    public void save(EnrolCourse enrolCourse) {
-        enrolCourseRepository.save(enrolCourse);
+    public EnrolCourse save(EnrolCourse enrolCourse) {
+        return enrolCourseRepository.save(enrolCourse);
     }
+
+
 
 
     @Override
@@ -44,7 +46,7 @@ public class EnrolCourseService implements MyService<EnrolCourse, Long> {
     @Override
     public void deleteById(Long aLong) {
 //        unlink tasks from student
-        enrolTaskService.unlinkTasksFromStudent(getById(aLong));
+//        enrolTaskService.unlinkTasksFromStudent(getById(aLong));
 //      unlink student from course
         enrolCourseRepository.deleteById(aLong);
     }
@@ -58,8 +60,8 @@ public class EnrolCourseService implements MyService<EnrolCourse, Long> {
         Student student = studentService.getById(studentID);
         Course course = courseService.getById(courseID);
 // making student-course conection entity
-        save(new EnrolCourse(student, course));
+        EnrolCourse enrolCourse = save(new EnrolCourse(student, course));
 // add course tasks to student
-        enrolTaskService.addTasksToStudent(student, course.getTasks());
+        enrolTaskService.addTasksToStudent(enrolCourse, course.getTasks());
     }
 }

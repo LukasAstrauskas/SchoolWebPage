@@ -21,14 +21,15 @@ public class CourseService implements MyService<Course, Long> {
     }
 
     @Override
-    public void save(Course course) {
+    public Course save(Course course) {
         if (course.getTeacher().getId() == 0) {
             course.setTeacher(null);
         }
         if (course.getId() != null) {
             update(course);
+            return course;
         } else {
-            courseRepository.save(course);
+            return courseRepository.save(course);
         }
     }
 

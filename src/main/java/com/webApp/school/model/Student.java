@@ -18,10 +18,7 @@ public class Student extends User {
     @JoinColumn(name = "house_id")
     private House house;
 
-    @OneToMany(mappedBy = "student")
-    private List<EnrolTask> enrolTasks;
-
-    @OneToMany(mappedBy = "student")
+    @OneToMany(mappedBy = "student", cascade = {CascadeType.ALL})
     private List<EnrolCourse> enrolCourses;
 
     public Student(User user, String password) {

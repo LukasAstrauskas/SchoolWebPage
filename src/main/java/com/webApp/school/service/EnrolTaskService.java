@@ -2,7 +2,6 @@ package com.webApp.school.service;
 
 import com.webApp.school.model.EnrolCourse;
 import com.webApp.school.model.EnrolTask;
-import com.webApp.school.model.Student;
 import com.webApp.school.model.Task;
 import com.webApp.school.repository.EnrolTaskRepository;
 import org.springframework.stereotype.Service;
@@ -27,8 +26,9 @@ public class EnrolTaskService implements MyService<EnrolTask, Long> {
     }
 
     @Override
-    public void save(EnrolTask enrolTask) {
+    public EnrolTask save(EnrolTask enrolTask) {
         enrolTaskRepository.save(enrolTask);
+        return enrolTask;
     }
 
     @Override
@@ -46,34 +46,18 @@ public class EnrolTaskService implements MyService<EnrolTask, Long> {
         enrolTaskRepository.save(enrolTask);
     }
 
-    public void addTasksToStudent(Student student, List<Task> tasks) {
-        tasks.forEach(task -> save(new EnrolTask(student, task)));
+    public void addTasksToStudent(EnrolCourse enrolCourse, List<Task> tasks) {
+        tasks.forEach(task -> save(new EnrolTask(enrolCourse, task)));
     }
 
     public void unlinkTasksFromStudent(EnrolCourse enrolCourse) {
-//        Student from whom to remove tasks, Student unlinked from course
-        Student student = enrolCourse.getStudent();
-//        Tasks which  should be removed from student
-        List<Task> tasks = enrolCourse.getCourse().getTasks();
-
-//        getting all students tasks
-        getAll().stream()
-//                filtering to one student tasks
-                .filter(enrolTask -> enrolTask.getStudent().equals(student))
-//                filter to tasks to remove
-                .filter(enrolTask ->
-                        tasks.stream()
-                                .anyMatch(task -> task.equals(enrolTask.getTask()))
-                )
-//                removing tasks from student
-                .forEach(enrolTask -> deleteById(enrolTask.getId()));
+        enrolCourse.getEnrolTasks().forEach(
+                enrolTask -> deleteById(enrolTask.getId())
+        );
     }
 
-    public void addTaskToStudents(Task task, Long courseID) {
-        courseService.getById(courseID).getEnrolCourses().stream()
-                .forEach(enrolCourse -> {
-                    Student student = enrolCourse.getStudent();
-                    save(new EnrolTask(student, task));
-                });
+    public void addTaskToStudents(Task task) {
+        task.getCourse().getEnrolCourses()
+                .forEach(enrolCourse -> save(new EnrolTask(enrolCourse, task)));
     }
 }

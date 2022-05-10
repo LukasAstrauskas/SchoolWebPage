@@ -25,15 +25,17 @@ public class TaskService implements MyService<Task, Long> {
     }
 
     @Override
-    public void save(Task task) {
+    public Task save(Task task) {
         if (task.getCourse().getId() == 0) {
             task.setCourse(null);
         }
         if (task.getId() != null){
             update(task);
+            return task;
         } else {
-            taskRepository.save(task);
-            enrolTaskService.addTaskToStudents(task, task.getCourse().getId());
+            Task savedTask = taskRepository.save(task);
+            enrolTaskService.addTaskToStudents(savedTask);
+            return savedTask;
         }
     }
 

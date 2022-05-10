@@ -36,10 +36,10 @@ public class Course {
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = {CascadeType.ALL})
     private List<Task> tasks;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course", cascade = {CascadeType.ALL})
     private List<EnrolCourse> enrolCourses;
 
 

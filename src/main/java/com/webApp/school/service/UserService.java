@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService implements MyService<User, Long> {
@@ -24,10 +23,11 @@ public class UserService implements MyService<User, Long> {
     }
 
     @Override
-    public void save(User user) {
+    public User save(User user) {
         user.setEmail(user.getEmail().toLowerCase());
         if (user.getId() != null) {
             update(user);
+            return user;
         } else {
             User userToSave;
 //        TODO generate password
@@ -45,7 +45,7 @@ public class UserService implements MyService<User, Long> {
                 default:
                     throw new IllegalStateException("Unexpected value: " + user.getRole());
             }
-            userRepository.save(userToSave);
+          return  userRepository.save(userToSave);
         }
     }
 

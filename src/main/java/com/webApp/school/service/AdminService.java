@@ -1,6 +1,7 @@
 package com.webApp.school.service;
 
 import com.webApp.school.model.Admin;
+import com.webApp.school.model.Course;
 import com.webApp.school.repository.AdminRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,8 +22,8 @@ public class AdminService implements MyService<Admin, Long> {
     }
 
     @Override
-    public void save(Admin admin) {
-        adminRepository.save(admin);
+    public Admin save(Admin admin) {
+        return adminRepository.save(admin);
     }
 
     @Override

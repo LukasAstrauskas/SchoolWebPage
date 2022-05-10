@@ -1,12 +1,14 @@
 package com.webApp.school.service;
 
+import com.webApp.school.model.Course;
+
 import java.util.List;
 
 public interface MyService<T, S> {
 
     List<T> getAll();
 
-    void save(T t);
+    T save(T t);
 
     T getById(S s);
 

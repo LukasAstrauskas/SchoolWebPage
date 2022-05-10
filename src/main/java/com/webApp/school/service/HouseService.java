@@ -23,14 +23,15 @@ public class HouseService implements MyService<House, Long> {
     }
 
     @Override
-    public void save(House house) {
+    public House save(House house) {
         if (house.getId() != null) {
             update(house);
+            return house;
         } else {
             if (house.getHead().getId() == 0) {
                 house.setHead(null);
             }
-            houseRepository.save(house);
+            return houseRepository.save(house);
         }
     }
 
