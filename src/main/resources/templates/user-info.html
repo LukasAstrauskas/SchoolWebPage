@@ -12,55 +12,62 @@
     <br>
     <table border="1">
         <tr>
-            <td>ID:</td>
+            <th>ID:</th>
             <td th:text="${user.id}"></td>
         </tr>
         <tr>
-            <td>Name:</td>
+            <th>Name:</th>
             <td th:text="${user.name}"></td>
         </tr>
         <tr>
-            <td>Surname:</td>
+            <th>Surname:</th>
             <td th:text="${user.surname}"></td>
         </tr>
         <tr>
-            <td>Email:</td>
+            <th>Email:</th>
             <td th:text="${user.email}"></td>
         </tr>
         <tr>
-            <td>Role:</td>
+            <th>Role:</th>
             <td th:text="${user.role}"></td>
         </tr>
     </table>
     <br>
 
-    <table border="2" th:if="${user.role}=='STUDENT' ">
-        <caption><b>Tasks</b></caption>
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Reference</th>
-            <th>In Course</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="enrolTask, aStat : ${user.enrolTasks}">
-            <td th:text="${aStat.count}"></td>
-            <td th:text="${enrolTask.task.id}"></td>
-            <td th:text="${enrolTask.task.name}"></td>
-            <td th:text="${enrolTask.task.description}"></td>
-            <td>
-                <a th:href="@{${enrolTask.task.reference}}">Link</a>
-                <!-- th:title="${enrolTask.task.reference}"-->
-            </td>
-            <td th:text="${enrolTask.task.course}==null ? 'No Course' : ${enrolTask.task.course.name}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <div th:if="${user.role}=='STUDENT' ">
+        <ul>
+            <li th:each="enrCourse, aStat : ${user.enrolCourses}">
+                <p></p>
+                <table border="2">
+                    <caption><b th:text="'Tasks for: '+${enrCourse.course.name}"> </b></caption>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Reference</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="enrT, aStat : ${enrCourse.enrolTasks}">
+                        <td th:text="${aStat.count}"></td>
+                        <td th:text="${enrT.task.id}"></td>
+                        <td th:text="${enrT.task.name}"></td>
+                        <td th:text="${enrT.task.description}"></td>
+                        <td>
+                            <a th:href="@{${enrT.task.reference}}">Link</a>
+                        </td>
+                        <td th:text="${enrT.status} ? 'Done' : 'In Progress' "></td>
+<!--                        <td th:text="${enrT.status} "></td>-->
+                    </tr>
+                    </tbody>
+                </table>
 
+            </li>
+        </ul>
+    </div>
 
 </article>
 

@@ -34,7 +34,8 @@ public class TaskService implements MyService<Task, Long> {
             return task;
         } else {
             Task savedTask = taskRepository.save(task);
-            enrolTaskService.addTaskToStudents(savedTask);
+            System.out.println("Course ID form Saved Task: "+savedTask.getCourse().getId());
+            enrolTaskService.addTaskToStudents(savedTask, savedTask.getCourse().getId());
             return savedTask;
         }
     }
