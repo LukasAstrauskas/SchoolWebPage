@@ -59,8 +59,15 @@
                         <td>
                             <a th:href="@{${enrT.task.reference}}">Link</a>
                         </td>
-                        <td th:text="${enrT.status} ? 'Done' : 'In Progress' "></td>
-<!--                        <td th:text="${enrT.status} "></td>-->
+                        <td>
+                            <form th:action="@{/updateTaskStatus}">
+                                <input type="hidden" th:name="taskID" th:value="${enrT.id}"/>
+                                <button type="submit" th:name="userID" th:value="${user.id}">
+                                    <a th:text="${enrT.status} ? 'Done' : 'In Progress' "></a>
+                                </button>
+                            </form>
+                        </td>
+                        <!--                        <td th:text="${enrT.status} "></td>-->
                     </tr>
                     </tbody>
                 </table>

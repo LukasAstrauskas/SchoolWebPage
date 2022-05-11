@@ -67,4 +67,10 @@ public class EnrolTaskService implements MyService<EnrolTask, Long> {
                     });
         }
     }
+
+    public void changeTaskStatus(Long enrTaskId) {
+        EnrolTask enrolTask = getById(enrTaskId);
+        enrolTask.setStatus(!enrolTask.isStatus());
+        save(enrolTask);
+    }
 }
