@@ -3,9 +3,14 @@ package com.webApp.school.controller;
 import com.webApp.school.model.User;
 import com.webApp.school.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 
 @Controller
@@ -33,12 +38,11 @@ public class UserController {
     }
 
     @GetMapping("/info-user")
-    public String infoUser(@RequestParam( "id") Long id, Model model) {
+    public String infoUser(@RequestParam("id") Long id, Model model) {
         User user = userService.getById(id);
         model.addAttribute("user", user);
         return "user-info";
     }
-
 
 
     @PostMapping("/save-user")
@@ -52,6 +56,8 @@ public class UserController {
         userService.deleteById(id);
         return "redirect:/admin/Users";
     }
+
+
 
 
 }

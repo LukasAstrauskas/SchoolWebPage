@@ -3,14 +3,18 @@ package com.webApp.school.service;
 import com.webApp.school.model.*;
 import com.webApp.school.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService implements MyService<User, Long> {
 
     private final UserRepository userRepository;
+    PasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Autowired
     public UserService(UserRepository userRepository) {
@@ -31,7 +35,8 @@ public class UserService implements MyService<User, Long> {
         } else {
             User userToSave;
 //        TODO generate password
-            String password = "pass";
+
+            String password = encoder.encode("pass");
             switch (user.getRole()) {
                 case "ADMIN":
                     userToSave = new Admin(user, password);
@@ -45,7 +50,7 @@ public class UserService implements MyService<User, Long> {
                 default:
                     throw new IllegalStateException("Unexpected value: " + user.getRole());
             }
-          return  userRepository.save(userToSave);
+            return userRepository.save(userToSave);
         }
     }
 
@@ -57,6 +62,11 @@ public class UserService implements MyService<User, Long> {
     @Override
     public void deleteById(Long id) {
         userRepository.deleteById(id);
+    }
+
+    public User getUserByEmail(String email) {
+        Optional<User> byEmail = userRepository.findByEmail(email);
+        return byEmail.get();
     }
 
     @Override

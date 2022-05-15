@@ -35,7 +35,8 @@
     <br>
 
     <div th:if="${user.role}=='STUDENT' ">
-        <ul>
+        <ul style="list-style-type:none" >
+<!--            list-style-type:none -->
             <li th:each="enrCourse, aStat : ${user.enrolCourses}">
                 <p></p>
                 <table border="2">
