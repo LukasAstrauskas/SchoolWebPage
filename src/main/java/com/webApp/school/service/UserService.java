@@ -34,9 +34,11 @@ public class UserService implements MyService<User, Long> {
             return user;
         } else {
             User userToSave;
-//        TODO generate password
 
-            String password = encoder.encode("pass");
+// Todo move to new class
+            String rawPassword = user.getEmail().split("@")[0];
+
+            String password = encoder.encode(rawPassword);
             switch (user.getRole()) {
                 case "ADMIN":
                     userToSave = new Admin(user, password);
@@ -68,6 +70,11 @@ public class UserService implements MyService<User, Long> {
         Optional<User> byEmail = userRepository.findByEmail(email);
         return byEmail.get();
     }
+
+//    public <T> T (String email) {
+//        T t = new T();
+//        return t;
+//    }
 
     @Override
     public void update(User userWithNewInfo) {

@@ -17,7 +17,7 @@ public class AdminController {
         this.adminService = adminService;
     }
 
-    @GetMapping("/info-Admin")
+    @GetMapping("/info-admin")
     public String infoAdmin(@RequestParam("id") Long id, Model model) {
         model.addAttribute("user", adminService.getById(id));
         return "user-info";

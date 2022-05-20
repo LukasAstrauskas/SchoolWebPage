@@ -34,7 +34,6 @@ public class TaskService implements MyService<Task, Long> {
             return task;
         } else {
             Task savedTask = taskRepository.save(task);
-            System.out.println("Course ID form Saved Task: "+savedTask.getCourse().getId());
             enrolTaskService.addTaskToStudents(savedTask, savedTask.getCourse().getId());
             return savedTask;
         }
@@ -47,7 +46,6 @@ public class TaskService implements MyService<Task, Long> {
 
     @Override
     public void deleteById(Long aLong) {
-//        enrolTaskService.unlinkTaskFromStudents(getById(aLong));
         taskRepository.deleteById(aLong);
     }
 

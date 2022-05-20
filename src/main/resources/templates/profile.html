@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title> Profile </title>
+</head>
+<body>
+<header th:insert="fragments/general.html :: header">>
+</header>
+
+
+<article>
+
+    <div th:replace="fragments/general.html :: common"></div>
+
+    <h2>Profile Page</h2>
+
+    <div th:replace="fragments/general.html :: userTable(user=${user})">
+    </div>
+
+    <br>
+
+    <div sec:authorize="hasRole('ROLE_STUDENT')" th:replace="fragments/general.html :: studentCourses(user=${user})">
+    </div>
+
+
+</article>
+
+<footer>
+
+</footer>
+</body>
+</html>

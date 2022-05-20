@@ -62,7 +62,6 @@ public class EnrolTaskService implements MyService<EnrolTask, Long> {
         if (enrolCourses != null) {
             enrolCourses
                     .forEach(enrolCourse -> {
-                        System.out.println("Saving new Enr Task.");
                         save(new EnrolTask(enrolCourse, task));
                     });
         }

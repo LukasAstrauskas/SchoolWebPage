@@ -1,5 +1,6 @@
 package com.webApp.school.controller;
 
+import com.webApp.school.model.Teacher;
 import com.webApp.school.service.TeacherService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,8 @@ public class TeacherController {
 
     @GetMapping("/admin/info-teacher")
     public String infoTeacher(@RequestParam( "id") Long id, Model model) {
-        model.addAttribute("user", teacherService.getById(id));
+        Teacher teacher = teacherService.getById(id);
+        model.addAttribute("user",teacher );
         return "user-info";
     }
 

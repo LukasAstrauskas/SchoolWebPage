@@ -10,7 +10,7 @@
 
 <article>
     <br>
-    <form action="#" th:action="@{/admin/save-course}" th:object="${course}" method="post">
+    <form action="#" th:action="@{/admin/save-course}" th:object="${course}" method="post" id="courseForm">
         <table border="1">
             <input type="hidden" th:field="*{id}">
             <tr>
@@ -19,7 +19,10 @@
             </tr>
             <tr>
                 <td>Description:</td>
-                <td><input type="text" th:field="*{description}"></td>
+                <td>
+                    <textarea th:field="*{description}" form="courseForm"></textarea>
+                    <!--                    <input type="text" >-->
+                </td>
             </tr>
 
             <tr>
@@ -62,8 +65,10 @@
             <td th:text="${aStat.count}"></td>
             <td th:text="${course.id}"></td>
             <td th:text="${course.name}"></td>
-            <td th:text="${course.description}"></td>
-            <td th:text="${course.teacher}==null ? 'No Teacher' : ${course.teacher.name}+' '+${course.teacher.surname}" ></td>
+            <td>
+                <textarea readonly th:text="${course.description}"></textarea>
+            </td>
+            <td th:text="${course.teacher}==null ? 'No Teacher' : ${course.teacher.name}+' '+${course.teacher.surname}"></td>
             <td th:text="${course.credits}"></td>
             <td>
                 <a th:href="@{/admin/course-info/{id}(id=${course.id})}">Info</a>

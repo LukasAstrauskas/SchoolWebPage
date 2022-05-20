@@ -18,7 +18,7 @@ public class EnrolTaskController {
     public String updateTaskStatus(@RequestParam(value = "taskID") Long enrTaskId,
                                    @RequestParam(value = "userID", required = false) Long userId) {
         enrolTaskService.changeTaskStatus(enrTaskId);
-        return "redirect:/admin/info-student?id=" + userId;
+        return "redirect:/profile";
     }
 
 

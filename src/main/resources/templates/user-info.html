@@ -10,37 +10,23 @@
 
 <article>
     <br>
-    <table border="1">
-        <tr>
-            <th>ID:</th>
-            <td th:text="${user.id}"></td>
-        </tr>
-        <tr>
-            <th>Name:</th>
-            <td th:text="${user.name}"></td>
-        </tr>
-        <tr>
-            <th>Surname:</th>
-            <td th:text="${user.surname}"></td>
-        </tr>
-        <tr>
-            <th>Email:</th>
-            <td th:text="${user.email}"></td>
-        </tr>
-        <tr>
-            <th>Role:</th>
-            <td th:text="${user.role}"></td>
-        </tr>
-    </table>
+
+    <div th:replace="fragments/general.html :: userTable(user=${user})">
+    </div>
+
     <br>
 
+
     <div th:if="${user.role}=='STUDENT' ">
-        <ul style="list-style-type:none" >
-<!--            list-style-type:none -->
+        <ul style="list-style-type:none">
             <li th:each="enrCourse, aStat : ${user.enrolCourses}">
-                <p></p>
+                <table border="3">
+                    <th th:text="'Tasks for: '+${enrCourse.course.name}"></th>
+                    <th>Actions</th>
+                </table>
+
                 <table border="2">
-                    <caption><b th:text="'Tasks for: '+${enrCourse.course.name}"> </b></caption>
+
                     <thead>
                     <tr>
                         <th>#</th>
@@ -49,6 +35,7 @@
                         <th>Description</th>
                         <th>Reference</th>
                         <th>Status</th>
+                        <th>Comments</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -68,11 +55,11 @@
                                 </button>
                             </form>
                         </td>
-                        <!--                        <td th:text="${enrT.status} "></td>-->
+                        <td><textarea th:text="${enrT.comments} "></textarea></td>
                     </tr>
                     </tbody>
                 </table>
-
+                <br>
             </li>
         </ul>
     </div>
