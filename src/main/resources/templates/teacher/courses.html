@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <div th:insert="fragments/general.html :: head"></div>
+    <title> Courses </title>
+</head>
+<body>
+<header th:insert="fragments/general.html :: header">>
+</header>
+
+
+<article>
+    <h2>Courses Page</h2>
+
+
+
+        <div sec:authorize="hasRole('ROLE_TEACHER')">
+           Hello, teacher!
+
+            <table border="2">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Teacher</th>
+                    <th>Credits</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="course, aStat : ${courses}">
+                    <td th:text="${aStat.count}"></td>
+                    <td th:text="${course.id}"></td>
+                    <td th:text="${course.name}"></td>
+                    <td>
+                        <textarea readonly th:text="${course.description}"></textarea>
+                    </td>
+                    <td th:text="${course.teacher}==null ? 'No Teacher' : ${course.teacher.name}+' '+${course.teacher.surname}"></td>
+                    <td th:text="${course.credits}"></td>
+                    <td>
+                        <a th:href="@{/admin/course-info/{id}(id=${course.id})}">Info</a>
+                        <a th:href="@{/admin/Courses/{id}(id=${course.id})}">Update</a>
+                        <a th:href="@{/admin/delete-course/{id}(id=${course.id})}">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+
+</article>
+
+<footer>
+
+</footer>
+</body>
+</html>

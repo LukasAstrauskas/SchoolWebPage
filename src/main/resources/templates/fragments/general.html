@@ -18,6 +18,7 @@
     <a th:href="@{/mainHall}">Main Hall</a>
     <a th:href="@{/profile}" sec:authorize="isAuthenticated()">Profile</a>
     <a th:href="@{/student/Courses}" sec:authorize="hasRole('ROLE_STUDENT')">Courses</a>
+    <a th:href="@{/teacher/Courses}" sec:authorize="hasRole('ROLE_TEACHER')">Courses</a>
     <a th:href="@{/Tasks}" sec:authorize="hasRole('ROLE_TEACHER')">Tasks</a>
     <a th:href="@{/admin/Houses}" sec:authorize="hasRole('ROLE_ADMIN')">Houses </a>
     <a th:href="@{/admin/Courses}" sec:authorize="hasRole('ROLE_ADMIN')">Courses </a>

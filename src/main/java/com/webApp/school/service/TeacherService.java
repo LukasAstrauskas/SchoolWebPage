@@ -2,6 +2,7 @@ package com.webApp.school.service;
 
 import com.webApp.school.model.*;
 import com.webApp.school.repository.TeacherRepository;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -53,5 +54,10 @@ public class TeacherService implements MyService<Teacher, Long> {
         return getAll().stream().filter(teacher ->
                 teacher.getHouse() == null
         ).collect(Collectors.toList());
+    }
+
+    public List<Course> getCourses(Authentication auth) {
+        Teacher teacher = teacherRepository.getByEmail(auth.getName());
+        return teacher.getCourses();
     }
 }
