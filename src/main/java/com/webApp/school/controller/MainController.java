@@ -40,11 +40,6 @@ public class MainController {
         return "profile";
     }
 
-    @GetMapping("/courses")
-    public String courses(Principal principal, Model model) {
-        User user = userService.getUserByEmail(principal.getName());
-        model.addAttribute("user", user);
-        return "courses";
-    }
+
 
 }

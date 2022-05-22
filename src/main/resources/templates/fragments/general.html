@@ -2,8 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <div th:fragment="head">
-        <meta charset="UTF-8"/>
-        <!--        <link th:href="@{/css/styles.css}" rel="stylesheet">-->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+              integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+              crossorigin="anonymous">
     </div>
 
 </head>
@@ -13,12 +16,12 @@
 <div th:fragment="header">
     <a th:href="@{/}">Index Page</a>
     <a th:href="@{/mainHall}">Main Hall</a>
-    <a th:href="@{/profile}" sec:authorize="isAuthenticated()" >Profile</a>
-    <a th:href="@{/courses}" sec:authorize="hasAnyRole('ROLE_STUDENT', 'ROLE_TEACHER')" >Courses </a>
-    <a th:href="@{/Tasks}"sec:authorize="hasRole('ROLE_TEACHER')"  >Tasks</a>
-    <a th:href="@{/admin/Houses}" sec:authorize="hasRole('ROLE_ADMIN')" >Houses </a>
-    <a th:href="@{/admin/Courses}" sec:authorize="hasRole('ROLE_ADMIN')" >Courses </a>
-    <a th:href="@{/admin/Users}" sec:authorize="hasRole('ROLE_ADMIN')" >Users </a>
+    <a th:href="@{/profile}" sec:authorize="isAuthenticated()">Profile</a>
+    <a th:href="@{/student/Courses}" sec:authorize="hasRole('ROLE_STUDENT')">Courses</a>
+    <a th:href="@{/Tasks}" sec:authorize="hasRole('ROLE_TEACHER')">Tasks</a>
+    <a th:href="@{/admin/Houses}" sec:authorize="hasRole('ROLE_ADMIN')">Houses </a>
+    <a th:href="@{/admin/Courses}" sec:authorize="hasRole('ROLE_ADMIN')">Courses </a>
+    <a th:href="@{/admin/Users}" sec:authorize="hasRole('ROLE_ADMIN')">Users </a>
     <a th:href="@{/login}">Login</a>
     <a th:href="@{/logout}">Logout</a>
 
@@ -42,7 +45,7 @@
 </div>
 
 <div th:fragment="userTable(user)">
-    <table border="1" th:object="${user}" >
+    <table border="1" th:object="${user}">
         <tr>
             <th>ID:</th>
             <td th:text="*{id}"></td>
@@ -63,19 +66,22 @@
             <th>Role:</th>
             <td th:text="*{role}"></td>
         </tr>
-        <tr th:unless="${user.role}=='ADMIN'" >
+        <tr th:unless="${user.role}=='ADMIN'">
             <th>House:</th>
-            <td th:text="*{house}==null ? 'No House' : *{house.name} " ></td>
+            <td th:text="*{house}==null ? 'No House' : *{house.name} "></td>
         </tr>
     </table>
 </div>
 
-<div th:fragment="studentCourses(user)" >
+<div th:fragment="studentCourses(enrCourses)">
     <ul style="list-style-type:none">
-        <li th:each="enrCourse, aStat : ${user.enrolCourses}">
+        <li th:each="enrC, aStat : ${enrCourses}">
             <table border="3">
-                <th th:text="'Tasks for: '+${enrCourse.course.name}"></th>
-                <th>Actions</th>
+                <th th:text="${aStat.count}"></th>
+                <th th:text="'Tasks for: '+${enrC.course.name}"></th>
+                <th th:text="'Teacher: '+
+                ${enrC.course.teacher.name}+' '+${enrC.course.teacher.surname}"></th>
+<!--                <th>Actions</th>-->
             </table>
 
             <table border="2">
@@ -87,11 +93,11 @@
                     <th>Description</th>
                     <th>Reference</th>
                     <th>Status</th>
-                    <th>Comments</th>
+<!--                    <th>Comments</th>-->
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="enrT, aStat : ${enrCourse.enrolTasks}">
+                <tr th:each="enrT, aStat : ${enrC.enrolTasks}">
                     <td th:text="${aStat.count}"></td>
                     <td th:text="${enrT.task.name}"></td>
                     <td th:text="${enrT.task.description}"></td>
@@ -101,12 +107,12 @@
                     <td>
                         <form th:action="@{/updateTaskStatus}">
                             <input type="hidden" th:name="taskID" th:value="${enrT.id}"/>
-                            <button type="submit" th:name="userID" th:value="${user.id}">
+                            <button type="submit">
                                 <a th:text="${enrT.status} ? 'Done' : 'In Progress' "></a>
                             </button>
                         </form>
                     </td>
-                    <td><textarea th:text="${enrT.comments} "></textarea></td>
+<!--                    <td><textarea th:text="${enrT.comments} "></textarea></td>-->
                 </tr>
                 </tbody>
             </table>
@@ -122,5 +128,14 @@
     <a th:href="@{/other}">Other</a>
 </footer>
 
+
+<div th:fragment="script">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+            integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+            integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+            crossorigin="anonymous"></script>
+</div>
 </body>
 </html>

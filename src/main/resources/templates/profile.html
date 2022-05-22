@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <div th:insert="fragments/general.html :: head" ></div>
     <title> Profile </title>
 </head>
 <body>
@@ -17,11 +17,7 @@
 
     <div th:replace="fragments/general.html :: userTable(user=${user})">
     </div>
-
-    <br>
-
-    <div sec:authorize="hasRole('ROLE_STUDENT')" th:replace="fragments/general.html :: studentCourses(user=${user})">
-    </div>
+    
 
 
 </article>

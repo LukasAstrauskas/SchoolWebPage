@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
-<head th:insert="fragments/general.html :: head">
+<head>
+    <div th:insert="fragments/general.html :: head" ></div>
     <title>Add User</title>
 </head>
 <body>
@@ -86,5 +87,6 @@
 </article>
 
 <footer></footer>
+<div th:insert="fragments/general.html :: script" ></div>
 </body>
 </html>

@@ -5,9 +5,11 @@ import com.webApp.school.model.EnrolCourse;
 import com.webApp.school.model.House;
 import com.webApp.school.model.Student;
 import com.webApp.school.repository.StudentRepository;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -33,7 +35,7 @@ public class StudentService implements MyService<Student, Long> {
 
     @Override
     public Student save(Student student) {
-      return   studentRepository.save(student);
+        return studentRepository.save(student);
     }
 
 
@@ -87,5 +89,10 @@ public class StudentService implements MyService<Student, Long> {
         List<Student> students = getAll();
         students.removeAll(studentsInCourse);
         return students;
+    }
+
+    public Student getStudentByEmail(String email) {
+        Optional<Student> opt = studentRepository.findByEmail(email);
+        return opt.get();
     }
 }

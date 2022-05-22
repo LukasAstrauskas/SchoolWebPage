@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <div th:insert="fragments/general.html :: head"></div>
+    <title> Courses </title>
+</head>
+<body>
+<header th:insert="fragments/general.html :: header">>
+</header>
+
+
+<article>
+    <h2>Courses Page</h2>
+
+    <div sec:authorize="hasRole('ROLE_STUDENT')">
+        Hello, student!
+    </div>
+
+
+        <div sec:authorize="hasRole('ROLE_STUDENT')"
+             th:replace="fragments/general.html :: studentCourses(enrCourses=${enrCourses})">
+        </div>
+
+
+</article>
+
+<footer>
+
+</footer>
+</body>
+</html>
