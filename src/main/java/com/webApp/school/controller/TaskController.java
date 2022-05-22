@@ -40,7 +40,7 @@ public class TaskController {
     @PostMapping("/save-task")
     public String saveTask(@ModelAttribute("task") Task task) {
         taskService.save(task);
-        return "redirect:/Tasks";
+        return "redirect:/teacher/Courses";
     }
 
     @GetMapping("/delete-task/{id}")

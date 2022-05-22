@@ -1,6 +1,7 @@
 package com.webApp.school.controller;
 
 import com.webApp.school.model.Student;
+import com.webApp.school.model.Task;
 import com.webApp.school.model.Teacher;
 import com.webApp.school.service.TeacherService;
 import org.springframework.security.core.Authentication;
@@ -28,6 +29,7 @@ public class TeacherController {
 
     @GetMapping("/teacher/Courses")
     public String courses(Model model, Authentication auth) {
+        model.addAttribute("task", new Task());
         model.addAttribute("courses", teacherService.getCourses(auth));
         return "teacher/courses";
     }

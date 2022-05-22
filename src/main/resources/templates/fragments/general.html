@@ -19,7 +19,7 @@
     <a th:href="@{/profile}" sec:authorize="isAuthenticated()">Profile</a>
     <a th:href="@{/student/Courses}" sec:authorize="hasRole('ROLE_STUDENT')">Courses</a>
     <a th:href="@{/teacher/Courses}" sec:authorize="hasRole('ROLE_TEACHER')">Courses</a>
-    <a th:href="@{/Tasks}" sec:authorize="hasRole('ROLE_TEACHER')">Tasks</a>
+    <a th:href="@{/Tasks}" sec:authorize="hasAnyRole('ROLE_TEACHER', 'ROLE_ADMIN')">Tasks</a>
     <a th:href="@{/admin/Houses}" sec:authorize="hasRole('ROLE_ADMIN')">Houses </a>
     <a th:href="@{/admin/Courses}" sec:authorize="hasRole('ROLE_ADMIN')">Courses </a>
     <a th:href="@{/admin/Users}" sec:authorize="hasRole('ROLE_ADMIN')">Users </a>
@@ -82,7 +82,7 @@
                 <th th:text="'Tasks for: '+${enrC.course.name}"></th>
                 <th th:text="'Teacher: '+
                 ${enrC.course.teacher.name}+' '+${enrC.course.teacher.surname}"></th>
-<!--                <th>Actions</th>-->
+                <!--                <th>Actions</th>-->
             </table>
 
             <table border="2">
@@ -94,7 +94,7 @@
                     <th>Description</th>
                     <th>Reference</th>
                     <th>Status</th>
-<!--                    <th>Comments</th>-->
+                    <!--                    <th>Comments</th>-->
                 </tr>
                 </thead>
                 <tbody>
@@ -113,7 +113,7 @@
                             </button>
                         </form>
                     </td>
-<!--                    <td><textarea th:text="${enrT.comments} "></textarea></td>-->
+                    <!--                    <td><textarea th:text="${enrT.comments} "></textarea></td>-->
                 </tr>
                 </tbody>
             </table>
