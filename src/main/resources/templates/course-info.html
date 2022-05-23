@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head th:insert="fragments/general.html :: head">
     <title>Add User</title>
 </head>
@@ -14,27 +15,32 @@
 
     <table border="1">
         <tr>
-            <td>ID:</td>
+            <th>ID:</th>
             <td th:text="${course.id}"></td>
         </tr>
         <tr>
-            <td>Name:</td>
+            <th>Name:</th>
             <td th:text="${course.name}"></td>
         </tr>
         <tr>
-            <td>Description:</td>
+            <th>Credits:</th>
+            <td th:text="${course.credits}" ></td>
+        </tr>
+        <tr>
+            <th>Description:</th>
             <td th:text="${course.description}"></td>
         </tr>
         <tr>
-            <td>Teacher:</td>
+            <th>Teacher:</th>
             <td th:text="${course.teacher}==null ? 'No Teacher' : ${course.teacher.name}+' '+${course.teacher.surname}"></td>
         </tr>
+
     </table>
 
     <br>
-
+<div sec:authorize="hasRole('ROLE_ADMIN')" >
     <table border="2">
-        <caption >Free Students (<b th:text="${studList.size}" ></b>)</caption>
+        <caption>Free Students (<b th:text="${studList.size}"></b>)</caption>
         <thead>
         <tr>
             <th>#</th>
@@ -62,7 +68,7 @@
     <br>
 
     <table border="2">
-        <caption >Students In Course (<b th:text="${course.enrolCourses.size}" >lo</b>)</caption>
+        <caption>Students In Course (<b th:text="${course.enrolCourses.size}">lo</b>)</caption>
         <thead>
         <tr>
             <th>#</th>
@@ -90,8 +96,8 @@
 
     <br>
 
-    <table border="2">
-        <caption >Tasks (<b th:text="${course.tasks.size}" ></b>) </caption>
+    <table border="2" >
+        <caption>Tasks (<b th:text="${course.tasks.size}"></b>)</caption>
         <thead>
         <tr>
             <th>#</th>
@@ -113,7 +119,24 @@
         </tr>
         </tbody>
     </table>
+</div>
 
+    <table border="2" th:name="students-tasks-status" sec:authorize="hasRole('ROLE_TEACHER')">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th th:each="task : ${course.tasks}"><a th:text="${task.name}"></a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="enrC : ${course.enrolCourses}">
+            <th th:text="${enrC.student.name}+' '+${enrC.student.surname}" ></th>
+            <td th:each="enrT : ${enrC.enrolTasks}" >
+                <a th:text="${enrT.status}?'Finished':'In Progress'"></a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
 </article>
 

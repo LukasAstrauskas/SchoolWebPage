@@ -55,6 +55,8 @@ public class TaskService implements MyService<Task, Long> {
         toUpdate.setName(newInfo.getName());
         toUpdate.setDescription(newInfo.getDescription());
         toUpdate.setReference(newInfo.getReference());
+//        TODO if updating course, need to create new task or delete/create new enrolTasks
+//        toUpdate.setCourse(newInfo.getCourse());
         taskRepository.save(toUpdate);
     }
 }

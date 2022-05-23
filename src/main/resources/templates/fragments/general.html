@@ -19,7 +19,7 @@
     <a th:href="@{/profile}" sec:authorize="isAuthenticated()">Profile</a>
     <a th:href="@{/student/Courses}" sec:authorize="hasRole('ROLE_STUDENT')">Courses</a>
     <a th:href="@{/teacher/Courses}" sec:authorize="hasRole('ROLE_TEACHER')">Courses</a>
-    <a th:href="@{/Tasks}" sec:authorize="hasAnyRole('ROLE_TEACHER', 'ROLE_ADMIN')">Tasks</a>
+<!--    <a th:href="@{/Tasks}" sec:authorize="hasAnyRole('ROLE_TEACHER', 'ROLE_ADMIN')">Tasks</a>-->
     <a th:href="@{/admin/Houses}" sec:authorize="hasRole('ROLE_ADMIN')">Houses </a>
     <a th:href="@{/admin/Courses}" sec:authorize="hasRole('ROLE_ADMIN')">Courses </a>
     <a th:href="@{/admin/Users}" sec:authorize="hasRole('ROLE_ADMIN')">Users </a>

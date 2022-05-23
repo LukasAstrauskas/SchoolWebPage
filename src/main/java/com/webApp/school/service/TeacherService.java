@@ -5,6 +5,7 @@ import com.webApp.school.repository.TeacherRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,7 +26,7 @@ public class TeacherService implements MyService<Teacher, Long> {
 
     @Override
     public Teacher save(Teacher teacher) {
-      return   teacherRepository.save(teacher);
+        return teacherRepository.save(teacher);
     }
 
 
@@ -59,5 +60,24 @@ public class TeacherService implements MyService<Teacher, Long> {
     public List<Course> getCourses(Authentication auth) {
         Teacher teacher = teacherRepository.getByEmail(auth.getName());
         return teacher.getCourses();
+    }
+
+    public Task getTeacherTask(Authentication auth, Long id) {
+        List<Task> taskList = new ArrayList<>();
+        getCourses(auth).forEach(course -> {
+            taskList.addAll(course.getTasks());
+        });
+
+        Task task1 = taskList.stream()
+                .filter(task -> task.getId().equals(id))
+                .findFirst().get();
+        return task1;
+    }
+
+    public Object getCourseByID(Long courseID, Authentication auth) {
+        Course course1 = getCourses(auth).stream()
+                .filter(course -> course.getId().equals(courseID))
+                .findFirst().get();
+        return course1;
     }
 }

@@ -16,7 +16,7 @@
 
 
 <div th:fragment="addTask(task, courses)">
-    <form action="#" th:action="@{/save-task}" th:object="${task}" method="post">
+    <form action="#" th:action="@{/teacher/save-task}" th:object="${task}" method="post">
         <table border="1">
             <input type="hidden" th:field="*{id}">
             <tr>

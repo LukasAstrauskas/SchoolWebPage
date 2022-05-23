@@ -14,19 +14,19 @@
         <table border="1">
             <input type="hidden" th:field="*{id}">
             <tr>
-                <td>Name:</td>
+                <th>Name:</th>
                 <td><input type="text" th:field="*{name}"></td>
             </tr>
             <tr>
-                <td>Description:</td>
+                <th>Description:</th>
                 <td><input type="text" th:field="*{description}"></td>
             </tr>
             <tr>
-                <td>Reference:</td>
+                <th>Reference:</th>
                 <td><input type="url" th:field="*{reference}"></td>
             </tr>
             <tr>
-                <td>In Course:</td>
+                <th>In Course:</th>
                 <td>
                     <select type="number" th:field="*{course.id}">
 <!--                        <option th:value="0">Select Course</option>-->
