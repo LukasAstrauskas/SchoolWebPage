@@ -23,17 +23,6 @@ public class TaskController {
         this.courseService = courseService;
     }
 
-//    @GetMapping(value = {"/Tasks", "/Tasks/{id}"})
-//    public String tasks(@PathVariable(required = false) Long id, Model model) {
-//        if (id == null) {
-//            model.addAttribute("task", new Task());
-//        } else {
-//            model.addAttribute("task", taskService.getById(id));
-//        }
-//        model.addAttribute("tasks", taskService.getAll());
-//        model.addAttribute("courses", courseService.getAll());
-//        return "tasks";
-//    }
 
     @PostMapping("/save-task")
     public String saveTask(@ModelAttribute("task") Task task) {

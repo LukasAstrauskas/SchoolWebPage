@@ -26,10 +26,7 @@ public class TaskService implements MyService<Task, Long> {
 
     @Override
     public Task save(Task task) {
-        if (task.getCourse().getId() == 0) {
-            task.setCourse(null);
-        }
-        if (task.getId() != null){
+        if (task.getId() != null) {
             update(task);
             return task;
         } else {
@@ -51,12 +48,17 @@ public class TaskService implements MyService<Task, Long> {
 
     @Override
     public void update(Task newInfo) {
-        Task toUpdate = getById(newInfo.getId());
-        toUpdate.setName(newInfo.getName());
-        toUpdate.setDescription(newInfo.getDescription());
-        toUpdate.setReference(newInfo.getReference());
-//        TODO if updating course, need to create new task or delete/create new enrolTasks
-//        toUpdate.setCourse(newInfo.getCourse());
-        taskRepository.save(toUpdate);
+        Long taskID = newInfo.getId();
+        Task toUpdate = getById(taskID);
+        if (toUpdate.getCourse().equals(newInfo.getCourse())) {
+            toUpdate.setName(newInfo.getName());
+            toUpdate.setDescription(newInfo.getDescription());
+            toUpdate.setReference(newInfo.getReference());
+            taskRepository.save(toUpdate);
+        } else {
+            deleteById(taskID);
+            newInfo.setId(null);
+            save(newInfo);
+        }
     }
 }
