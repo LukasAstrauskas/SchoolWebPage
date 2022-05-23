@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8"/>
+    <div th:insert="fragments/general.html :: head" ></div>
     <title>Home</title>
 </head>
 <body>
@@ -24,5 +24,6 @@
 </article>
 <div th:replace="fragments/general.html :: footer"></div>
 <footer></footer>
+<div th:insert="fragments/general.html :: script" ></div>
 </body>
 </html>

@@ -6,6 +6,7 @@ import com.webApp.school.model.House;
 import com.webApp.school.model.Student;
 import com.webApp.school.repository.StudentRepository;
 import org.hibernate.ObjectNotFoundException;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -94,5 +95,12 @@ public class StudentService implements MyService<Student, Long> {
     public Student getStudentByEmail(String email) {
         Optional<Student> opt = studentRepository.findByEmail(email);
         return opt.get();
+    }
+
+    public List<Course> getStudentCourses(Authentication auth) {
+        return getStudentByEmail(auth.getName())
+                .getEnrolCourses().stream()
+                .map(EnrolCourse::getCourse)
+                .collect(Collectors.toList());
     }
 }

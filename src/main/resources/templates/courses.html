@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <div th:insert="fragments/general.html :: head" ></div>
+    <div th:insert="fragments/general.html :: head"></div>
     <title>Add User</title>
 </head>
 <body>
@@ -11,7 +12,8 @@
 
 <article>
     <br>
-    <form action="#" th:action="@{/admin/save-course}" th:object="${course}" method="post" id="courseForm">
+    <form sec:authorize="hasRole('ROLE_ADMIN')" action="#" th:action="@{/admin/save-course}"
+          th:object="${course}" method="post" id="courseForm">
         <table border="1">
             <input type="hidden" th:field="*{id}">
             <tr>
@@ -72,7 +74,7 @@
             </td>
             <td th:text="${course.teacher}==null ? 'No Teacher' : ${course.teacher.name}+' '+${course.teacher.surname}"></td>
             <td th:text="${course.credits}"></td>
-            <td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')">
                 <a th:href="@{/admin/course-info/{id}(id=${course.id})}">Info</a>
                 <a th:href="@{/admin/Courses/{id}(id=${course.id})}">Update</a>
                 <a th:href="@{/admin/delete-course/{id}(id=${course.id})}">Delete</a>
@@ -84,10 +86,9 @@
 
     <br>
 
-
 </article>
 
 <footer></footer>
-<div th:insert="fragments/general.html :: script" ></div>
+<div th:insert="fragments/general.html :: script"></div>
 </body>
 </html>

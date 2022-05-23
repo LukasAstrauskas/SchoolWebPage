@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <!--xmlns:th="http://www.thymeleaf.org"-->
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <div th:insert="fragments/general.html :: head" ></div>
     <title> Web App </title>
 </head>
 <body>
@@ -20,5 +20,6 @@
 <footer>
 
 </footer>
+<div th:insert="fragments/general.html :: script" ></div>
 </body>
 </html>

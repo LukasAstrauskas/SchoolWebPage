@@ -14,19 +14,19 @@
 <body>
 
 <div th:fragment="header">
-    <a th:href="@{/}">Index Page</a>
-    <a th:href="@{/mainHall}">Main Hall</a>
-    <a th:href="@{/profile}" sec:authorize="isAuthenticated()">Profile</a>
-    <a th:href="@{/student/Courses}" sec:authorize="hasRole('ROLE_STUDENT')">Courses</a>
-    <a th:href="@{/teacher/Courses}" sec:authorize="hasRole('ROLE_TEACHER')">Courses</a>
-<!--    <a th:href="@{/Tasks}" sec:authorize="hasAnyRole('ROLE_TEACHER', 'ROLE_ADMIN')">Tasks</a>-->
-    <a th:href="@{/admin/Houses}" sec:authorize="hasRole('ROLE_ADMIN')">Houses </a>
-    <a th:href="@{/admin/Courses}" sec:authorize="hasRole('ROLE_ADMIN')">Courses </a>
-    <a th:href="@{/admin/Users}" sec:authorize="hasRole('ROLE_ADMIN')">Users </a>
-    <a th:href="@{/login}">Login</a>
-    <a th:href="@{/logout}">Logout</a>
 
-
+    <nav class="nav nav-tabs d-flex justify-content-start mx-3 bg-light">
+        <a th:href="@{/}" class="nav-link" >Index Page</a>
+        <a th:href="@{/mainHall}" class="nav-link">Main Hall</a>
+        <a th:href="@{/profile}" class="nav-link" sec:authorize="isAuthenticated()">Profile</a>
+        <a th:href="@{/student/Courses}" class="nav-link" sec:authorize="hasRole('ROLE_STUDENT')">Courses</a>
+        <a th:href="@{/teacher/Courses}" class="nav-link" sec:authorize="hasRole('ROLE_TEACHER')">Courses</a>
+        <a th:href="@{/admin/Houses}" class="nav-link" sec:authorize="hasRole('ROLE_ADMIN')">Houses </a>
+        <a th:href="@{/admin/Courses}" class="nav-link" sec:authorize="hasRole('ROLE_ADMIN')">Courses </a>
+        <a th:href="@{/admin/Users}" class="nav-link" sec:authorize="hasRole('ROLE_ADMIN')">Users </a>
+        <a th:href="@{/login}" class="nav-link">Login</a>
+        <a th:href="@{/logout}" class="nav-link">Logout</a>
+    </nav>
 </div>
 
 <h2 th:fragment="common">Common knowledge</h2>
@@ -46,7 +46,8 @@
 </div>
 
 <div th:fragment="userTable(user)">
-    <table border="1" th:object="${user}">
+    <div class="mx-5 px-5">
+    <table class="table table-primary table-hover table-borderless" th:object="${user}">
         <tr>
             <th>ID:</th>
             <td th:text="*{id}"></td>
@@ -72,6 +73,7 @@
             <td th:text="*{house}==null ? 'No House' : *{house.name} "></td>
         </tr>
     </table>
+    </div>
 </div>
 
 <div th:fragment="studentCourses(enrCourses)">

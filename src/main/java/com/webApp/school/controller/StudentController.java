@@ -26,9 +26,8 @@ public class StudentController {
 
     @GetMapping("/student/Courses")
     public String courses(Model model, Authentication auth) {
-        Student student = studentService.getStudentByEmail(auth.getName());
-        model.addAttribute("enrCourses", student.getEnrolCourses());
-        return "student/courses";
+        model.addAttribute("courses", studentService.getStudentCourses(auth));
+        return "courses";
     }
 
 }

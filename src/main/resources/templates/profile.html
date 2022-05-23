@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" >
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <div th:insert="fragments/general.html :: head" ></div>
+    <div th:insert="fragments/general.html :: head"></div>
     <title> Profile </title>
 </head>
 <body>
@@ -9,7 +9,7 @@
 </header>
 
 
-<article>
+<article class="p-3 mb-2 bg-light text-dark">
 
     <div th:replace="fragments/general.html :: common"></div>
 
@@ -19,11 +19,12 @@
     </div>
 
 
-
 </article>
 
 <footer>
 
 </footer>
+
+<div th:insert="fragments/general.html :: script"></div>
 </body>
 </html>
