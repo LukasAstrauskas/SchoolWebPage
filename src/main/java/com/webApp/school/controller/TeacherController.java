@@ -1,5 +1,6 @@
 package com.webApp.school.controller;
 
+import com.webApp.school.model.EnrolCourse;
 import com.webApp.school.model.Student;
 import com.webApp.school.model.Task;
 import com.webApp.school.model.Teacher;
@@ -26,22 +27,25 @@ public class TeacherController {
         return "user-info";
     }
 
-    @GetMapping(value = {"/teacher/Courses", "/teacher/Courses/{taskID}"})
-    public String courses(Model model, Authentication auth, @PathVariable(required = false, value = "taskID") Long taskID) {
-        if (taskID == null) {
-            model.addAttribute("task", new Task());
+    @GetMapping(value = {"/teacher/Courses", "/teacher/Courses/{courseID}"})
+    public String courses(Model model, Authentication auth,
+                          @PathVariable(required = false, value = "courseID") Long courseID) {
+        if (courseID == null) {
+            model.addAttribute("courses", teacherService.getCourses(auth));
+            return "courses";
         } else {
-            model.addAttribute("task", teacherService.getTeacherTask(auth, taskID));
+            model.addAttribute("course", teacherService.getCourseByID(courseID, auth));
+            model.addAttribute("task", new Task());
+            return "course-info";
         }
-        model.addAttribute("courses", teacherService.getCourses(auth));
-        return "teacher/courses";
     }
 
-    @GetMapping("/teacher/course-info/{id}")
-    public String houseInfo(@PathVariable("id") Long courseID, Model model, Authentication auth) {
-        model.addAttribute("course", teacherService.getCourseByID(courseID, auth));
+
+//    @GetMapping("/teacher/course-info/{id}")
+//    public String houseInfo(@PathVariable("id") Long courseID, Model model, Authentication auth) {
+//        model.addAttribute("course", teacherService.getCourseByID(courseID, auth));
 //        model.addAttribute("studList", studentService.filterByCourse(courseID));
-        return "course-info";
-    }
+//        return "course-info";
+//    }
 
 }

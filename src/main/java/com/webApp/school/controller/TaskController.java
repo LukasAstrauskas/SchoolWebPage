@@ -25,14 +25,16 @@ public class TaskController {
 
 
     @PostMapping("/save-task")
-    public String saveTask(@ModelAttribute("task") Task task) {
+    public String saveTask(@ModelAttribute("task") Task task,
+                           @RequestParam(required = false, value = "courseID") Long courseID) {
         taskService.save(task);
-        return "redirect:/teacher/Courses";
+        return "redirect:/teacher/Courses/" + courseID;
     }
 
-    @GetMapping("/delete-task/{id}")
-    public String deleteTask(@PathVariable Long id) {
-        taskService.deleteById(id);
-        return "redirect:/teacher/Courses";
+    @GetMapping("/delete-task/{taskID}/{courseID}")
+    public String deleteTask(@PathVariable("taskID") Long taskID,
+                             @PathVariable("courseID") Long courseID) {
+        taskService.deleteById(taskID);
+        return "redirect:/teacher/Courses/" + courseID;
     }
 }

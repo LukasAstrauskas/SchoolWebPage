@@ -28,12 +28,11 @@ public class TaskService implements MyService<Task, Long> {
     public Task save(Task task) {
         if (task.getId() != null) {
             update(task);
-            return task;
         } else {
-            Task savedTask = taskRepository.save(task);
-            enrolTaskService.addTaskToStudents(savedTask, savedTask.getCourse().getId());
-            return savedTask;
+            Task save = taskRepository.save(task);
+            enrolTaskService.addTaskToStudents(task, task.getCourse().getId());
         }
+        return task;
     }
 
     @Override

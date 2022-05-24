@@ -24,9 +24,10 @@ public class EnrolTaskController {
 
 
     @GetMapping("/updateTaskStatus")
-    public String updateTaskStatus(@RequestParam(value = "taskID") Long enrTaskId) {
-        enrolTaskService.changeTaskStatus(enrTaskId);
-        return "redirect:/student/Courses";
+    public String updateTaskStatus(@RequestParam(value = "taskID") Long enrTaskID,
+                                   @RequestParam(value = "courseID") Long courseID ) {
+        enrolTaskService.changeTaskStatus(enrTaskID);
+        return "redirect:/student/Courses/"+courseID;
     }
 
 

@@ -10,32 +10,70 @@
 
 
 <article>
+    <div sec:authorize="hasRole('ROLE_STUDENT')">
+        <a class="nav-link m-5 px-5" th:href="@{/student/Courses}">Back</a>
+    </div>
+    <div sec:authorize="hasRole('ROLE_STUDENT')" class="m-5 px-5">
+        <table class="table table-primary table-hover table-borderless">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Reference</th>
+                <th>Status</th>
+                <!--                    <th>Comments</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="enrT, aStat : ${enrC.enrolTasks}">
+                <th th:text="${aStat.count}"></th>
+                <td th:text="${enrT.task.name}"></td>
+                <td th:text="${enrT.task.description}"></td>
+                <td>
+                    <a th:href="@{${enrT.task.reference}}">Link</a>
+                </td>
+                <td>
+                    <form th:action="@{/updateTaskStatus}">
+                        <input type="hidden" th:name="taskID" th:value="${enrT.id}"/>
+                        <input type="hidden" th:name="courseID" th:value="${enrC.course.id}"/>
+                        <button type="submit">
+                            <a th:text="${enrT.status} ? 'Completed' : 'In Progress' "></a>
+                        </button>
+                    </form>
+                </td>
+                <!--                    <td><textarea th:text="${enrT.comments} "></textarea></td>-->
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
 
     <br>
 
-    <table border="1">
-        <tr>
-            <th>ID:</th>
-            <td th:text="${course.id}"></td>
-        </tr>
-        <tr>
-            <th>Name:</th>
-            <td th:text="${course.name}"></td>
-        </tr>
-        <tr>
-            <th>Credits:</th>
-            <td th:text="${course.credits}"></td>
-        </tr>
-        <tr>
-            <th>Description:</th>
-            <td th:text="${course.description}"></td>
-        </tr>
-        <tr>
-            <th>Teacher:</th>
-            <td th:text="${course.teacher}==null ? 'No Teacher' : ${course.teacher.name}+' '+${course.teacher.surname}"></td>
-        </tr>
+    <!--    <table border="1" th:object="${course}">-->
+    <!--        <tr>-->
+    <!--            <th>ID:</th>-->
+    <!--            <td th:text="*{id}"></td>-->
+    <!--        </tr>-->
+    <!--        <tr>-->
+    <!--            <th>Name:</th>-->
+    <!--            <td th:text="*{name}"></td>-->
+    <!--        </tr>-->
+    <!--        <tr>-->
+    <!--            <th>Credits:</th>-->
+    <!--            <td th:text="*{credits}"></td>-->
+    <!--        </tr>-->
+    <!--        <tr>-->
+    <!--            <th>Description:</th>-->
+    <!--            <td th:text="${course.description}"></td>-->
+    <!--        </tr>-->
+    <!--        <tr>-->
+    <!--            <th>Teacher:</th>-->
+    <!--            <td th:text="${course.teacher}==null ? 'No Teacher' : ${course.teacher.name}+' '+${course.teacher.surname}"></td>-->
+    <!--        </tr>-->
 
-    </table>
+    <!--    </table>-->
 
     <br>
     <div sec:authorize="hasRole('ROLE_ADMIN')">
@@ -121,23 +159,57 @@
         </table>
     </div>
 
-    <table border="2" th:name="students-tasks-status" sec:authorize="hasRole('ROLE_TEACHER')">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th th:each="task : ${course.tasks}"><a th:text="${task.name}"></a></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="enrC : ${course.enrolCourses}">
-            <th th:text="${enrC.student.name}+' '+${enrC.student.surname}"></th>
-            <td th:each="enrT : ${enrC.enrolTasks}">
-                <a th:text="${enrT.status}?'Finished':'In Progress'"></a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div sec:authorize="hasRole('ROLE_TEACHER')">
 
+        <div th:replace="fragments/tables.html :: addTask(task=${task},course=${course})">
+        </div>
+
+        <table border="2">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Reference</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="task, aStat : ${course.tasks}">
+                <td th:text="${aStat.count}"></td>
+                <td th:text="${task.id}"></td>
+                <td th:text="${task.name}"></td>
+                <td th:text="${task.description}"></td>
+                <td>
+                    <a th:href="@{${task.reference}}" th:title="${task.reference}">Link</a>
+                </td>
+                <td>
+<!--                    <a th:href="@{/teacher/Courses/{taskID}(taskID=${task.id})}">Update</a>-->
+                    <a th:href="@{/teacher/delete-task/{taskID}/{courseID}(taskID=${task.id}, courseID=${course.id})}">Delete</a>
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <table border="2" th:name="students-tasks-status">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th th:each="task : ${course.tasks}"><a th:text="${task.name}"></a></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="enrC : ${course.enrolCourses}">
+                <th th:text="${enrC.student.name}+' '+${enrC.student.surname}"></th>
+                <td th:each="enrT : ${enrC.enrolTasks}">
+                    <a th:text="${enrT.status}?'Finished':'In Progress'"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </article>
 
 <footer></footer>

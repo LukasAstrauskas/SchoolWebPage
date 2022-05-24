@@ -1,11 +1,12 @@
 package com.webApp.school.controller;
 
-import com.webApp.school.model.Student;
+import com.webApp.school.model.EnrolCourse;
 import com.webApp.school.service.StudentService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -24,10 +25,19 @@ public class StudentController {
         return "user-info";
     }
 
-    @GetMapping("/student/Courses")
-    public String courses(Model model, Authentication auth) {
-        model.addAttribute("courses", studentService.getStudentCourses(auth));
-        return "courses";
+    @GetMapping({"/student/Courses", "/student/Courses/{courseID}"})
+    public String courses(Model model, Authentication auth,
+                          @PathVariable(required = false, value = "courseID") Long courseID) {
+        if (courseID == null) {
+            model.addAttribute("courses", studentService.getStudentCourses(auth));
+            return "courses";
+        } else {
+            EnrolCourse enrCourse = studentService.getStudentEnrolledCourse(auth, courseID);
+            model.addAttribute("enrC", enrCourse);
+            return "course-info";
+        }
     }
+
+
 
 }

@@ -94,7 +94,7 @@ public class StudentService implements MyService<Student, Long> {
 
     public Student getStudentByEmail(String email) {
         Optional<Student> opt = studentRepository.findByEmail(email);
-        return opt.get();
+        return opt.orElseThrow();
     }
 
     public List<Course> getStudentCourses(Authentication auth) {
@@ -102,5 +102,19 @@ public class StudentService implements MyService<Student, Long> {
                 .getEnrolCourses().stream()
                 .map(EnrolCourse::getCourse)
                 .collect(Collectors.toList());
+    }
+
+    public List<EnrolCourse> getStudentEnrolledCourses(Authentication auth) {
+        return getStudentByEmail(auth.getName())
+                .getEnrolCourses();
+    }
+
+
+    public EnrolCourse getStudentEnrolledCourse(Authentication auth, Long courseID) {
+        Optional<EnrolCourse> optEnrCourse = getStudentEnrolledCourses(auth).stream()
+                .filter(enrolCourse ->
+                        enrolCourse.getCourse().getId().equals(courseID))
+                .findFirst();
+        return optEnrCourse.orElse(new EnrolCourse());
     }
 }
