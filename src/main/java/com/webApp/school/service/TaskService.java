@@ -49,15 +49,9 @@ public class TaskService implements MyService<Task, Long> {
     public void update(Task newInfo) {
         Long taskID = newInfo.getId();
         Task toUpdate = getById(taskID);
-        if (toUpdate.getCourse().equals(newInfo.getCourse())) {
-            toUpdate.setName(newInfo.getName());
-            toUpdate.setDescription(newInfo.getDescription());
-            toUpdate.setReference(newInfo.getReference());
-            taskRepository.save(toUpdate);
-        } else {
-            deleteById(taskID);
-            newInfo.setId(null);
-            save(newInfo);
-        }
+        toUpdate.setName(newInfo.getName());
+        toUpdate.setDescription(newInfo.getDescription());
+        toUpdate.setReference(newInfo.getReference());
+        taskRepository.save(toUpdate);
     }
 }

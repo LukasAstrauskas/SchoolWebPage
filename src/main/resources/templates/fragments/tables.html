@@ -17,19 +17,19 @@
 
 <div th:fragment="addTask(task, course)">
     <form action="#" th:action="@{/teacher/save-task}" th:object="${task}" method="post">
-        <table border="1">
+        <table class="table table-primary table-hover table-borderless">
             <input type="hidden" th:field="*{id}">
             <tr>
                 <th>Name:</th>
-                <td><input type="text" th:field="*{name}"></td>
+                <td><input class="form-control" type="text" th:field="*{name}"></td>
             </tr>
             <tr>
                 <th>Description:</th>
-                <td><input type="text" th:field="*{description}"></td>
+                <td><input class="form-control" type="text" th:field="*{description}"></td>
             </tr>
             <tr>
                 <th>Reference:</th>
-                <td><input type="url" th:field="*{reference}"></td>
+                <td><input class="form-control" type="url" th:field="*{reference}"></td>
             </tr>
             <!--            <tr>-->
             <!--                <th>In Course:</th>-->

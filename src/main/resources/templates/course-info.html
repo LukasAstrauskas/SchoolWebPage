@@ -10,10 +10,9 @@
 
 
 <article>
-    <div sec:authorize="hasRole('ROLE_STUDENT')">
-        <a class="nav-link m-5 px-5" th:href="@{/student/Courses}">Back</a>
-    </div>
+
     <div sec:authorize="hasRole('ROLE_STUDENT')" class="m-5 px-5">
+        <a class="nav-link m-5 px-5" th:href="@{/student/Courses}">Back</a>
         <table class="table table-primary table-hover table-borderless">
             <thead>
             <tr>
@@ -49,33 +48,6 @@
 
     </div>
 
-    <br>
-
-    <!--    <table border="1" th:object="${course}">-->
-    <!--        <tr>-->
-    <!--            <th>ID:</th>-->
-    <!--            <td th:text="*{id}"></td>-->
-    <!--        </tr>-->
-    <!--        <tr>-->
-    <!--            <th>Name:</th>-->
-    <!--            <td th:text="*{name}"></td>-->
-    <!--        </tr>-->
-    <!--        <tr>-->
-    <!--            <th>Credits:</th>-->
-    <!--            <td th:text="*{credits}"></td>-->
-    <!--        </tr>-->
-    <!--        <tr>-->
-    <!--            <th>Description:</th>-->
-    <!--            <td th:text="${course.description}"></td>-->
-    <!--        </tr>-->
-    <!--        <tr>-->
-    <!--            <th>Teacher:</th>-->
-    <!--            <td th:text="${course.teacher}==null ? 'No Teacher' : ${course.teacher.name}+' '+${course.teacher.surname}"></td>-->
-    <!--        </tr>-->
-
-    <!--    </table>-->
-
-    <br>
     <div sec:authorize="hasRole('ROLE_ADMIN')">
         <table border="2">
             <caption>Free Students (<b th:text="${studList.size}"></b>)</caption>
@@ -159,12 +131,18 @@
         </table>
     </div>
 
-    <div sec:authorize="hasRole('ROLE_TEACHER')">
+    <div sec:authorize="hasRole('ROLE_TEACHER')" class="mx-5 px-5">
+
+<!--        <button type="button" class="m-1 px-5 btn btn-dark">-->
+<!--            <a th:href="@{/teacher/Courses}">Back</a>-->
+<!--        </button>-->
+
+        <a class="btn btn-dark m-1 px-5" th:href="@{/teacher/Courses}" role="button">Back</a>
 
         <div th:replace="fragments/tables.html :: addTask(task=${task},course=${course})">
         </div>
 
-        <table border="2">
+        <table class="table table-primary table-hover table-borderless">
             <thead>
             <tr>
                 <th>#</th>
@@ -185,15 +163,14 @@
                     <a th:href="@{${task.reference}}" th:title="${task.reference}">Link</a>
                 </td>
                 <td>
-<!--                    <a th:href="@{/teacher/Courses/{taskID}(taskID=${task.id})}">Update</a>-->
+                    <a th:href="@{/teacher/Courses/{courseID}/{taskID}(taskID=${task.id}, courseID=${course.id})}">Update</a>
                     <a th:href="@{/teacher/delete-task/{taskID}/{courseID}(taskID=${task.id}, courseID=${course.id})}">Delete</a>
-
                 </td>
             </tr>
             </tbody>
         </table>
 
-        <table border="2" th:name="students-tasks-status">
+        <table class="table table-primary table-hover table-borderless">
             <thead>
             <tr>
                 <th>#</th>

@@ -62,16 +62,14 @@ public class TeacherService implements MyService<Teacher, Long> {
         return teacher.getCourses();
     }
 
-    public Task getTeacherTask(Authentication auth, Long id) {
+    public Task getTeacherTaskByID(Authentication auth, Long taskID) {
         List<Task> taskList = new ArrayList<>();
         getCourses(auth).forEach(course -> {
             taskList.addAll(course.getTasks());
         });
-
-        Task task1 = taskList.stream()
-                .filter(task -> task.getId().equals(id))
-                .findFirst().get();
-        return task1;
+        return taskList.stream()
+                .filter(task -> task.getId().equals(taskID))
+                .findFirst().orElseThrow();
     }
 
     public Object getCourseByID(Long courseID, Authentication auth) {
@@ -80,4 +78,6 @@ public class TeacherService implements MyService<Teacher, Long> {
                 .findFirst().get();
         return course1;
     }
+
+
 }

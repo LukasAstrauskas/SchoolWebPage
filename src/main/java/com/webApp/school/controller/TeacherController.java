@@ -27,15 +27,20 @@ public class TeacherController {
         return "user-info";
     }
 
-    @GetMapping(value = {"/teacher/Courses", "/teacher/Courses/{courseID}"})
+    @GetMapping(value = {"/teacher/Courses", "/teacher/Courses/{courseID}", "/teacher/Courses/{courseID}/{taskID}"})
     public String courses(Model model, Authentication auth,
-                          @PathVariable(required = false, value = "courseID") Long courseID) {
+                          @PathVariable(required = false, value = "courseID") Long courseID,
+                          @PathVariable(required = false, value = "taskID") Long taskID) {
         if (courseID == null) {
             model.addAttribute("courses", teacherService.getCourses(auth));
             return "courses";
         } else {
             model.addAttribute("course", teacherService.getCourseByID(courseID, auth));
-            model.addAttribute("task", new Task());
+            if (taskID == null) {
+                model.addAttribute("task", new Task());
+            } else {
+                model.addAttribute("task", teacherService.getTeacherTaskByID(auth, taskID));
+            }
             return "course-info";
         }
     }
