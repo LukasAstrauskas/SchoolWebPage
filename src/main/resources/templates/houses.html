@@ -4,7 +4,7 @@
 <head th:insert="fragments/general.html :: head">
     <title>Add User</title>
 </head>
-<body class="bg-success">
+<body class="bg-secondary">
 <header th:insert="fragments/general.html :: header">
 </header>
 
@@ -29,8 +29,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><input type="submit" value="Submit"/></td>
-                    <td><input type="reset" value="Reset"/></td>
+                    <td><input class="btn btn-warning" type="submit" value="Submit"/></td>
+                    <td><input class="btn btn-warning" type="reset" value="Reset"/></td>
                 </tr>
             </table>
         </form>
@@ -47,14 +47,14 @@
             </thead>
             <tbody>
             <tr th:each="house, aStat : ${houses}">
-                <td th:text="${aStat.count}"></td>
+                <th th:text="${aStat.count}"></th>
                 <td th:text="${house.id}"></td>
                 <td th:text="${house.name}"></td>
                 <td th:text="${house.head}==null ? 'No Head' : ${house.head.name}+' '+${house.head.surname}"></td>
                 <td>
-                    <button><a th:href="@{/admin/info-house(id=${house.id})}">Info</a></button>
-                    <button><a th:href="@{/admin/Houses/{id}(id=${house.id})}">Update</a></button>
-                    <button><a th:href="@{/admin/delete-house/{id}(id=${house.id})}">Delete</a></button>
+                    <a class="btn btn-warning" role="button" th:href="@{/admin/info-house(id=${house.id})}">Info</a>
+                    <a class="btn btn-warning" role="button" th:href="@{/admin/Houses/{id}(id=${house.id})}">Update</a>
+                    <a class="btn btn-warning" role="button" th:href="@{/admin/delete-house/{id}(id=${house.id})}">Delete</a>
                 </td>
             </tr>
             </tbody>

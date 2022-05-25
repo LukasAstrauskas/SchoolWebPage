@@ -51,10 +51,16 @@ public class TeacherService implements MyService<Teacher, Long> {
     }
 
 
-    public List<User> getAllTeachersNoHouse() {
+    public List<Teacher> getAllTeachersNoHouse() {
         return getAll().stream().filter(teacher ->
                 teacher.getHouse() == null
         ).collect(Collectors.toList());
+    }
+
+    public List<Teacher> getAllTeachersNoHouse(House house) {
+        List<Teacher> teachers = getAllTeachersNoHouse();
+        teachers.add(house.getHead());
+        return teachers;
     }
 
     public List<Course> getCourses(Authentication auth) {

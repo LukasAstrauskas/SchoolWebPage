@@ -37,13 +37,13 @@
                 </tr>
 
                 <tr>
-                    <td><input type="submit" value="Add"/></td>
-                    <td><input type="reset" value="Reset"/></td>
+                    <td><input class="btn btn-warning" type="submit" value="Add"/></td>
+                    <td><input class="btn btn-warning" type="reset" value="Reset"/></td>
                 </tr>
             </table>
         </form>
 
-        <table  class="table table-primary table-hover table-borderless mt-3">
+        <table class="table table-primary table-hover table-borderless mt-3">
             <thead>
             <tr>
                 <th>#</th>
@@ -57,25 +57,21 @@
             </thead>
             <tbody>
             <tr th:each="user, aStat : ${users}">
-                <td th:text="${aStat.count}"></td>
+                <th th:text="${aStat.count}"></th>
                 <td th:text="${user.id}"></td>
                 <td th:text="${user.name}"></td>
                 <td th:text="${user.surname}"></td>
                 <td th:text="${user.email}"></td>
                 <td th:text="${user.role}"></td>
                 <td>
-                    <form th:action="@{/admin/info-admin}" th:if="${user.role}=='ADMIN'">
-                        <button type="submit" th:name="id" th:value="${user.id}">Admin Info</button>
-                    </form>
-                    <form th:action="@{/admin/info-teacher}" th:if="${user.role}=='TEACHER'">
-                        <button type="submit" th:name="id" th:value="${user.id}">Teacher Info</button>
-                    </form>
-                    <form th:action="@{/admin/info-student}" th:if="${user.role}=='STUDENT'">
-                        <button type="submit" th:name="id" th:value="${user.id}">Student Info</button>
-                    </form>
-
-                    <button><a th:href="@{/admin/Users/{id}(id=${user.id})}">Update</a></button>
-                    <button><a th:href="@{/admin/delete-user/{id}(id=${user.id})}">Delete</a></button>
+                    <a th:href="@{/admin/info-admin(id=${user.id})}" class="btn btn-warning"
+                       th:if="${user.role}=='ADMIN'">Info</a>
+                    <a th:href="@{/admin/info-teacher(id=${user.id})}" class="btn btn-warning"
+                       th:if="${user.role}=='TEACHER'">Info</a>
+                    <a th:href="@{/admin/info-student(id=${user.id})}" class="btn btn-warning"
+                       th:if="${user.role}=='STUDENT'">Info</a>
+                    <a class="btn btn-warning" th:href="@{/admin/Users/{id}(id=${user.id})}">Update</a>
+                    <a class="btn btn-warning" th:href="@{/admin/delete-user/{id}(id=${user.id})}">Delete</a>
                 </td>
             </tr>
             </tbody>

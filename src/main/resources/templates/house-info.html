@@ -3,16 +3,14 @@
 <head th:insert="fragments/general.html :: head">
     <title>Add User</title>
 </head>
-<body>
+<body class="bg-secondary">
 <header th:insert="fragments/general.html :: header">
 </header>
 
 
-<article>
+<article class="mx-5 px-5" >
 
-    <br>
-
-    <table border="1">
+    <table class="table table-primary table-hover table-borderless mt-3">
         <tr>
             <td>ID:</td>
             <td th:text="${house.id}"></td>
@@ -27,9 +25,7 @@
         </tr>
     </table>
 
-    <br>
-
-    <table border="2">
+    <table class="table table-primary table-hover table-borderless mt-3">
         <thead>
         <tr>
             <th>#</th>
@@ -40,23 +36,21 @@
         </thead>
         <tbody>
         <tr th:each="student, aStat : ${studList}">
-            <td th:text="${aStat.count}"></td>
+            <th th:text="${aStat.count}"></th>
             <td th:text="${student.name}"></td>
             <td th:text="${student.surname}"></td>
             <td>
                 <form th:action="@{/admin/studentToHouse}">
                     <input type="hidden" th:name="houseID" th:value="${house.id}">
                     <input type="hidden" th:name="studentID" th:value="${student.id}">
-                    <input type="submit" value="Add to House">
+                    <input class="btn btn-warning" type="submit" value="Add to House">
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
 
-    <br>
-
-    <table border="2">
+    <table class="table table-primary table-hover table-borderless mt-3">
         <thead>
         <tr>
             <th>#</th>
@@ -67,14 +61,14 @@
         </thead>
         <tbody>
         <tr th:each="stud, status : ${house.students}">
-            <td th:text="${status.count}"></td>
+            <th th:text="${status.count}"></th>
             <td th:text="${stud.name}"></td>
             <td th:text="${stud.surname}"></td>
             <td>
                 <form th:action="@{/admin/removeFromHouse}">
                     <input type="hidden" th:name="houseID" th:value="${house.id}">
                     <input type="hidden" th:name="studentID" th:value="${stud.id}">
-                    <input type="submit" value="Remove from House">
+                    <input class="btn btn-warning" type="submit" value="Remove from House">
                 </form>
             </td>
         </tr>

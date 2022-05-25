@@ -35,11 +35,13 @@ public class HouseController {
     public String houses(@PathVariable(required = false) Long id, Model model) {
         if (id == null) {
             model.addAttribute("house", new House());
+            model.addAttribute("teachers", teacherService.getAllTeachersNoHouse());
         } else {
             model.addAttribute("house", houseService.getById(id));
+            model.addAttribute("teachers", teacherService
+                    .getAllTeachersNoHouse(houseService.getById(id)));
         }
         model.addAttribute("houses", houseService.getAll());
-        model.addAttribute("teachers", teacherService.getAllTeachersNoHouse());
         return "houses";
     }
 
@@ -71,7 +73,7 @@ public class HouseController {
 
     @GetMapping("/removeFromHouse")
     public String removeFromHouse(@RequestParam("houseID") Long houseID,
-                             @RequestParam("studentID") Long studentID) {
+                                  @RequestParam("studentID") Long studentID) {
         studentService.removeFromHouse(studentID);
         return "redirect:/admin/info-house" + "?id=" + houseID;
     }

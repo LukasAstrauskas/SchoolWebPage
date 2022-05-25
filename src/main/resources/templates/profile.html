@@ -4,16 +4,16 @@
     <div th:insert="fragments/general.html :: head"></div>
     <title> Profile </title>
 </head>
-<body>
+<body style="background-color: #adb5bd">
 <header th:insert="fragments/general.html :: header">>
 </header>
 
 
-<article class="p-3 mb-2 bg-light text-dark">
+<article class="p-3 mb-2 ">
 
-    <div th:replace="fragments/general.html :: common"></div>
+<!--    <div th:replace="fragments/general.html :: common"></div>-->
 
-    <h2>Profile Page</h2>
+<!--    <h2>Profile Page</h2>-->
 
     <div th:replace="fragments/general.html :: userTable(user=${user})">
     </div>

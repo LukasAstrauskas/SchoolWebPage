@@ -10,9 +10,9 @@
 </header>
 
 
-<article>
+<article class="mt-3 mx-5 px-5">
 
-    <div class="mt-3 mx-5 px-5" sec:authorize="hasRole('ROLE_ADMIN')" >
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
         <form action="#" th:action="@{/admin/save-course}"
               th:object="${course}" method="post" id="courseForm">
             <table class="table table-primary table-hover table-borderless">
@@ -44,14 +44,14 @@
                     <td><input type="number" th:field="*{credits}"></td>
                 </tr>
                 <tr>
-                    <td><input type="submit" value="Submit"/></td>
-                    <td><input type="reset" value="Reset"/></td>
+                    <td><input class="btn btn-warning" type="submit" value="Submit"/></td>
+                    <td><input class="btn btn-warning" type="reset" value="Reset"/></td>
                 </tr>
             </table>
         </form>
     </div>
 
-    <div class="mt-3 mx-5 px-5" sec:authorize="isAuthenticated()">
+    <div sec:authorize="isAuthenticated()">
         <table class="table table-primary table-hover table-borderless">
             <thead>
             <tr>
@@ -68,7 +68,7 @@
             </thead>
             <tbody>
             <tr th:each="course, aStat : ${courses}">
-                <td th:text="${aStat.count}"></td>
+                <th th:text="${aStat.count}"></th>
                 <td th:text="${course.id}"></td>
                 <td th:text="${course.name}"></td>
                 <td>
@@ -79,15 +79,15 @@
                 <td th:text="${course.enrolCourses.size()}"></td>
                 <td th:text="${course.tasks.size()}"></td>
                 <td sec:authorize="hasAnyRole('ROLE_STUDENT')">
-                    <a th:href="@{/student/Courses/{courseID}(courseID=${course.id})}">Info</a>
+                    <a class="btn btn-warning" th:href="@{/student/Courses/{courseID}(courseID=${course.id})}">Info</a>
                 </td>
                 <td sec:authorize="hasAnyRole('ROLE_TEACHER')">
-                    <a th:href="@{/teacher/Courses/{courseID}(courseID=${course.id})}">Info</a>
+                    <a class="btn btn-warning" th:href="@{/teacher/Courses/{courseID}(courseID=${course.id})}">Info</a>
                 </td>
                 <td sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a th:href="@{/admin/course-info/{id}(id=${course.id})}">Info</a>
-                    <a th:href="@{/admin/Courses/{id}(id=${course.id})}">Update</a>
-                    <a th:href="@{/admin/delete-course/{id}(id=${course.id})}">Delete</a>
+                    <a class="btn btn-warning" th:href="@{/admin/course-info/{id}(id=${course.id})}">Info</a>
+                    <a class="btn btn-warning" th:href="@{/admin/Courses/{id}(id=${course.id})}">Update</a>
+                    <a class="btn btn-warning" th:href="@{/admin/delete-course/{id}(id=${course.id})}">Delete</a>
                 </td>
             </tr>
             </tbody>
