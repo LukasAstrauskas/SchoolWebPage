@@ -3,89 +3,84 @@
 <head th:insert="fragments/general.html :: head">
     <title>Add User</title>
 </head>
-<body>
+<body style="background-color: #adb5bd">
 <header th:insert="fragments/general.html :: header">
 </header>
 
 
 <article>
-    <br>
-    <form action="#" th:action="@{/admin/save-user}" th:object="${user}" method="post">
-        <table border="1">
-            <input type="hidden" th:field="*{id}">
+    <div class="mx-5 px-5">
+        <form action="#" th:action="@{/admin/save-user}" th:object="${user}" method="post">
+            <table class="table table-primary table-hover table-borderless mt-3">
+                <input type="hidden" th:field="*{id}">
+                <tr>
+                    <td>Name:</td>
+                    <td><input class="form-control" required type="text" th:field="*{name}"></td>
+                </tr>
+                <tr>
+                    <td>Surname:</td>
+                    <td><input class="form-control" required type="text" th:field="*{surname}"></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input class="form-control" th:required="true" type="email" th:field="*{email}"></td>
+                </tr>
+                <tr>
+                    <td>Role:</td>
+                    <td>
+                        <select th:field="*{role}">
+                            <option value="STUDENT">Student</option>
+                            <option value="TEACHER">Teacher</option>
+                            <option value="ADMIN">Admin</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><input type="submit" value="Add"/></td>
+                    <td><input type="reset" value="Reset"/></td>
+                </tr>
+            </table>
+        </form>
+
+        <table  class="table table-primary table-hover table-borderless mt-3">
+            <thead>
             <tr>
-                <td>Name:</td>
-                <td><input required type="text" th:field="*{name}"></td>
+                <th>#</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
             </tr>
-            <tr>
-                <td>Surname:</td>
-                <td><input required type="text" th:field="*{surname}"></td>
-            </tr>
-            <tr>
-                <td>Email:</td>
-                <td><input th:required="true" type="email" th:field="*{email}"></td>
-            </tr>
-            <tr>
-                <td>Role:</td>
+            </thead>
+            <tbody>
+            <tr th:each="user, aStat : ${users}">
+                <td th:text="${aStat.count}"></td>
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.surname}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.role}"></td>
                 <td>
-                    <select th:field="*{role}">
-                        <option value="STUDENT">Student</option>
-                        <option value="TEACHER">Teacher</option>
-                        <option value="ADMIN">Admin</option>
-                    </select>
+                    <form th:action="@{/admin/info-admin}" th:if="${user.role}=='ADMIN'">
+                        <button type="submit" th:name="id" th:value="${user.id}">Admin Info</button>
+                    </form>
+                    <form th:action="@{/admin/info-teacher}" th:if="${user.role}=='TEACHER'">
+                        <button type="submit" th:name="id" th:value="${user.id}">Teacher Info</button>
+                    </form>
+                    <form th:action="@{/admin/info-student}" th:if="${user.role}=='STUDENT'">
+                        <button type="submit" th:name="id" th:value="${user.id}">Student Info</button>
+                    </form>
+
+                    <button><a th:href="@{/admin/Users/{id}(id=${user.id})}">Update</a></button>
+                    <button><a th:href="@{/admin/delete-user/{id}(id=${user.id})}">Delete</a></button>
                 </td>
             </tr>
-
-            <tr>
-                <td><input type="submit" value="Submit"/></td>
-            </tr>
+            </tbody>
         </table>
-    </form>
-
-    <br>
-
-    <table border="2">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user, aStat : ${users}">
-            <td th:text="${aStat.count}"></td>
-            <td th:text="${user.id}"></td>
-            <td th:text="${user.name}"></td>
-            <td th:text="${user.surname}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.role}"></td>
-            <td>
-                <form th:action="@{/admin/info-admin}" th:if="${user.role}=='ADMIN'" >
-                    <button type="submit" th:name="id" th:value="${user.id}">Admin Info</button>
-                </form>
-                <form th:action="@{/admin/info-teacher}" th:if="${user.role}=='TEACHER'" >
-                    <button type="submit" th:name="id" th:value="${user.id}">Teacher Info</button>
-                </form>
-                <form th:action="@{/admin/info-student}" th:if="${user.role}=='STUDENT'" >
-                    <button type="submit" th:name="id" th:value="${user.id}">Student Info</button>
-                </form>
-
-                <button><a th:href="@{/admin/Users/{id}(id=${user.id})}">Update</a></button>
-                <button><a th:href="@{/admin/delete-user/{id}(id=${user.id})}">Delete</a></button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-
-    <br>
-
-
+    </div>
 </article>
 
 <footer></footer>

@@ -11,8 +11,10 @@
 
 <article>
 
-    <div sec:authorize="hasRole('ROLE_STUDENT')" class="m-5 px-5">
-        <a class="nav-link m-5 px-5" th:href="@{/student/Courses}">Back</a>
+    <div sec:authorize="hasRole('ROLE_STUDENT')" class="mx-5 px-5">
+
+        <a class="btn btn-dark m-1 px-5" th:href="@{/student/Courses}" role="button">Back</a>
+
         <table class="table table-primary table-hover table-borderless">
             <thead>
             <tr>
@@ -132,10 +134,6 @@
     </div>
 
     <div sec:authorize="hasRole('ROLE_TEACHER')" class="mx-5 px-5">
-
-<!--        <button type="button" class="m-1 px-5 btn btn-dark">-->
-<!--            <a th:href="@{/teacher/Courses}">Back</a>-->
-<!--        </button>-->
 
         <a class="btn btn-dark m-1 px-5" th:href="@{/teacher/Courses}" role="button">Back</a>
 

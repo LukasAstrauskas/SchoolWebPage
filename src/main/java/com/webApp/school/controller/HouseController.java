@@ -56,7 +56,7 @@ public class HouseController {
     }
 
     @GetMapping("/info-house")
-    public String infoHouse(@ModelAttribute("id") Long id, Model model) {
+    public String infoHouse(@RequestParam("id") Long id, Model model) {
         model.addAttribute("house", houseService.getById(id));
         model.addAttribute("studList", studentService.getStudentsWithNoHouse());
         return "house-info";
