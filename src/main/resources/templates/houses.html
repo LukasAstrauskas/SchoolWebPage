@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html"
       xmlns:sec="http://www.w3.org/1999/xhtml">
-<head th:insert="fragments/general.html :: head">
-    <title>Add User</title>
+<head>
+    <div th:insert="fragments/general.html :: head"></div>
+    <title>Houses</title>
 </head>
 <body class="bg-secondary">
 <header th:insert="fragments/general.html :: header">
 </header>
 
 <article>
+
     <div class="mx-5 px-5" sec:authorize="hasRole('ROLE_ADMIN')">
 
         <form action="#" th:action="@{/admin/save-house}" th:object="${house}" method="post">
@@ -42,6 +44,7 @@
                 <th>ID</th>
                 <th>Name</th>
                 <th>House Head</th>
+                <th>Students</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -51,6 +54,7 @@
                 <td th:text="${house.id}"></td>
                 <td th:text="${house.name}"></td>
                 <td th:text="${house.head}==null ? 'No Head' : ${house.head.name}+' '+${house.head.surname}"></td>
+                <td th:text="${house.students.size}"></td>
                 <td>
                     <a class="btn btn-warning" role="button" th:href="@{/admin/info-house(id=${house.id})}">Info</a>
                     <a class="btn btn-warning" role="button" th:href="@{/admin/Houses/{id}(id=${house.id})}">Update</a>
@@ -61,6 +65,7 @@
         </table>
 
     </div>
+
 </article>
 
 <footer></footer>

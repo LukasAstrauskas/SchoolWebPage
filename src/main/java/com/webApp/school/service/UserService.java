@@ -1,6 +1,9 @@
 package com.webApp.school.service;
 
-import com.webApp.school.model.*;
+import com.webApp.school.model.Admin;
+import com.webApp.school.model.Student;
+import com.webApp.school.model.Teacher;
+import com.webApp.school.model.User;
 import com.webApp.school.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -8,7 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService implements MyService<User, Long> {
@@ -67,14 +69,10 @@ public class UserService implements MyService<User, Long> {
     }
 
     public User getUserByEmail(String email) {
-        Optional<User> byEmail = userRepository.findByEmail(email);
-        return byEmail.get();
+        return userRepository.findByEmail(email).orElseThrow();
+
     }
 
-//    public <T> T (String email) {
-//        T t = new T();
-//        return t;
-//    }
 
     @Override
     public void update(User userWithNewInfo) {

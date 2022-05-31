@@ -32,14 +32,14 @@ public class HouseController {
     }
 
     @GetMapping(value = {"/Houses", "/Houses/{id}"})
-    public String houses(@PathVariable(required = false) Long id, Model model) {
-        if (id == null) {
+    public String houses(@PathVariable(required = false, value = "id") Long houseID, Model model) {
+        if (houseID == null) {
             model.addAttribute("house", new House());
             model.addAttribute("teachers", teacherService.getAllTeachersNoHouse());
         } else {
-            model.addAttribute("house", houseService.getById(id));
+            model.addAttribute("house", houseService.getById(houseID));
             model.addAttribute("teachers", teacherService
-                    .getAllTeachersNoHouse(houseService.getById(id)));
+                    .getAllTeachersNoHouse(houseService.getById(houseID)));
         }
         model.addAttribute("houses", houseService.getAll());
         return "houses";

@@ -29,7 +29,7 @@ public class TaskService implements MyService<Task, Long> {
         if (task.getId() != null) {
             update(task);
         } else {
-            Task save = taskRepository.save(task);
+            taskRepository.save(task);
             enrolTaskService.addTaskToStudents(task, task.getCourse().getId());
         }
         return task;

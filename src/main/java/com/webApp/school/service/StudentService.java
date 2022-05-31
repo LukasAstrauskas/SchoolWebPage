@@ -111,10 +111,9 @@ public class StudentService implements MyService<Student, Long> {
 
 
     public EnrolCourse getStudentEnrolledCourse(Authentication auth, Long courseID) {
-        Optional<EnrolCourse> optEnrCourse = getStudentEnrolledCourses(auth).stream()
+        return getStudentEnrolledCourses(auth).stream()
                 .filter(enrolCourse ->
                         enrolCourse.getCourse().getId().equals(courseID))
-                .findFirst();
-        return optEnrCourse.orElse(new EnrolCourse());
+                .findFirst().orElseThrow();
     }
 }

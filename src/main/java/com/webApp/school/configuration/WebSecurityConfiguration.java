@@ -1,7 +1,6 @@
 package com.webApp.school.configuration;
 
 import com.webApp.school.service.SchoolUserDetailService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -48,7 +47,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().formLogin().defaultSuccessUrl("/profile")
                 .permitAll()
                 .and()
-                .logout().permitAll().logoutSuccessUrl("/mainHall")
+                .logout().permitAll().logoutSuccessUrl("/login")
                 .and()
                 .httpBasic();
     }

@@ -28,7 +28,7 @@ public class HouseService implements MyService<House, Long> {
             update(house);
             return house;
         } else {
-            if (house.getHead().getId() == 0) {
+            if (house.getHead() == null || house.getHead().getId() == 0) {
                 house.setHead(null);
             }
             return houseRepository.save(house);

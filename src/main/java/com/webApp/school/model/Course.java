@@ -42,6 +42,9 @@ public class Course {
     @OneToMany(mappedBy = "course", cascade = {CascadeType.ALL})
     private List<EnrolCourse> enrolCourses;
 
-
-
+    public Course(String name, String description, int credits) {
+        this.name = name;
+        this.description = description;
+        this.credits = credits;
+    }
 }

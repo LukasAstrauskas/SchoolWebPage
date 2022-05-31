@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -59,7 +60,10 @@ public class TeacherService implements MyService<Teacher, Long> {
 
     public List<Teacher> getAllTeachersNoHouse(House house) {
         List<Teacher> teachers = getAllTeachersNoHouse();
-        teachers.add(house.getHead());
+
+        Optional<Teacher> teacherOptional = Optional.ofNullable(house.getHead());
+        teacherOptional.ifPresent(teacher ->   teachers.add(house.getHead()));
+
         return teachers;
     }
 
@@ -70,19 +74,16 @@ public class TeacherService implements MyService<Teacher, Long> {
 
     public Task getTeacherTaskByID(Authentication auth, Long taskID) {
         List<Task> taskList = new ArrayList<>();
-        getCourses(auth).forEach(course -> {
-            taskList.addAll(course.getTasks());
-        });
+        getCourses(auth).forEach(course -> taskList.addAll(course.getTasks()));
         return taskList.stream()
                 .filter(task -> task.getId().equals(taskID))
                 .findFirst().orElseThrow();
     }
 
-    public Object getCourseByID(Long courseID, Authentication auth) {
-        Course course1 = getCourses(auth).stream()
+    public Course getCourseByID(Long courseID, Authentication auth) {
+        return getCourses(auth).stream()
                 .filter(course -> course.getId().equals(courseID))
-                .findFirst().get();
-        return course1;
+                .findFirst().orElse(null);
     }
 
 

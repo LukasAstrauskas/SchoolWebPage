@@ -26,4 +26,8 @@ public class House {
 
     @OneToMany(mappedBy = "house")
     private List<Student> students;
+
+    public House(String name) {
+        this.name = name;
+    }
 }

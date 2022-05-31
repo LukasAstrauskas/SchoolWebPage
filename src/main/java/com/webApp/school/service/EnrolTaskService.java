@@ -1,6 +1,5 @@
 package com.webApp.school.service;
 
-import com.webApp.school.model.Course;
 import com.webApp.school.model.EnrolCourse;
 import com.webApp.school.model.EnrolTask;
 import com.webApp.school.model.Task;
@@ -61,9 +60,7 @@ public class EnrolTaskService implements MyService<EnrolTask, Long> {
         List<EnrolCourse> enrolCourses = courseService.getById(courseID).getEnrolCourses();
         if (enrolCourses != null) {
             enrolCourses
-                    .forEach(enrolCourse -> {
-                        save(new EnrolTask(enrolCourse, task));
-                    });
+                    .forEach(enrolCourse -> save(new EnrolTask(enrolCourse, task)));
         }
     }
 

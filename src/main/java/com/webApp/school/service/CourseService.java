@@ -5,6 +5,7 @@ import com.webApp.school.repository.CourseRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CourseService implements MyService<Course, Long> {
@@ -22,7 +23,7 @@ public class CourseService implements MyService<Course, Long> {
 
     @Override
     public Course save(Course course) {
-        if (course.getTeacher().getId() == 0) {
+        if (course.getTeacher() == null || course.getTeacher().getId() == 0) {
             course.setTeacher(null);
         }
         if (course.getId() != null) {
@@ -53,5 +54,9 @@ public class CourseService implements MyService<Course, Long> {
         toUpdate.setStartDate(courseNewInfo.getStartDate());
         toUpdate.setEndDate(courseNewInfo.getEndDate());
         courseRepository.save(toUpdate);
+    }
+
+    public Optional<Course> findByName(String name){
+        return courseRepository.findByName(name);
     }
 }

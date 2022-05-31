@@ -27,7 +27,12 @@ public class Task {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @OneToMany(mappedBy = "task", cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "task", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     private List<EnrolTask> enrolTasks;
 
+    public Task(String name, String description, Course course) {
+        this.name = name;
+        this.description = description;
+        this.course = course;
+    }
 }

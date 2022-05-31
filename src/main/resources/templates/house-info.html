@@ -10,7 +10,7 @@
 
 <article class="mx-5 px-5" >
 
-    <table class="table table-primary table-hover table-borderless mt-3">
+    <table class="table  table-primary table-hover table-borderless mt-3">
         <tr>
             <td>ID:</td>
             <td th:text="${house.id}"></td>
@@ -25,7 +25,8 @@
         </tr>
     </table>
 
-    <table class="table table-primary table-hover table-borderless mt-3">
+    <table class="table caption-top table-primary table-hover table-borderless mt-3">
+        <caption class="text-white">Students with no house</caption>
         <thead>
         <tr>
             <th>#</th>
@@ -50,7 +51,8 @@
         </tbody>
     </table>
 
-    <table class="table table-primary table-hover table-borderless mt-3">
+    <table class="table table-primary caption-top table-hover table-borderless mt-3">
+        <caption class="text-white">Students in house</caption>
         <thead>
         <tr>
             <th>#</th>
