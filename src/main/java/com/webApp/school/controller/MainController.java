@@ -1,11 +1,8 @@
 package com.webApp.school.controller;
 
 
-import com.webApp.school.model.SchoolUserDetails;
-import com.webApp.school.model.Student;
 import com.webApp.school.model.User;
 import com.webApp.school.service.UserService;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

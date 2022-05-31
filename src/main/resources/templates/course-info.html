@@ -32,7 +32,7 @@
                 <td th:text="${enrT.task.name}"></td>
                 <td th:text="${enrT.task.description}"></td>
                 <td>
-                    <a th:href="@{${enrT.task.reference}}">Link</a>
+                    <a th:href="@{${enrT.task.reference}}" th:title="${enrT.task.reference}">Link</a>
                 </td>
                 <td>
                     <form th:action="@{/updateTaskStatus}">
@@ -51,6 +51,7 @@
     </div>
 
     <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <a class="btn btn-dark m-1 px-5" th:href="@{/admin/Courses}" role="button">Back</a>
         <table class="table table-primary table-hover table-borderless caption-top">
             <caption class="text-white" >Free Students (<b th:text="${studList.size}"></b>)</caption>
             <thead>

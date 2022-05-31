@@ -1,7 +1,6 @@
 package com.webApp.school.repository;
 
 import com.webApp.school.model.Teacher;
-import com.webApp.school.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

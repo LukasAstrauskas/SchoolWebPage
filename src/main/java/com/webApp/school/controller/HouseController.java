@@ -5,7 +5,6 @@ import com.webApp.school.model.House;
 import com.webApp.school.service.HouseService;
 import com.webApp.school.service.StudentService;
 import com.webApp.school.service.TeacherService;
-import com.webApp.school.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,17 +15,14 @@ import org.springframework.web.bind.annotation.*;
 public class HouseController {
 
     private final HouseService houseService;
-    private final UserService userService;
     private final TeacherService teacherService;
     private final StudentService studentService;
 
     @Autowired
     public HouseController(HouseService houseService,
-                           UserService userService,
                            TeacherService teacherService,
                            StudentService studentService) {
         this.houseService = houseService;
-        this.userService = userService;
         this.teacherService = teacherService;
         this.studentService = studentService;
     }

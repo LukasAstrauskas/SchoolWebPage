@@ -1,14 +1,14 @@
 package com.webApp.school.controller;
 
-import com.webApp.school.model.EnrolCourse;
-import com.webApp.school.model.Student;
 import com.webApp.school.model.Task;
 import com.webApp.school.model.Teacher;
 import com.webApp.school.service.TeacherService;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class TeacherController {
@@ -44,13 +44,4 @@ public class TeacherController {
             return "course-info";
         }
     }
-
-
-//    @GetMapping("/teacher/course-info/{id}")
-//    public String houseInfo(@PathVariable("id") Long courseID, Model model, Authentication auth) {
-//        model.addAttribute("course", teacherService.getCourseByID(courseID, auth));
-//        model.addAttribute("studList", studentService.filterByCourse(courseID));
-//        return "course-info";
-//    }
-
 }

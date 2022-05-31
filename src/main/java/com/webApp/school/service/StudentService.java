@@ -5,7 +5,6 @@ import com.webApp.school.model.EnrolCourse;
 import com.webApp.school.model.House;
 import com.webApp.school.model.Student;
 import com.webApp.school.repository.StudentRepository;
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 

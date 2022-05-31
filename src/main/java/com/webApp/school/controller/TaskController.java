@@ -2,11 +2,9 @@ package com.webApp.school.controller;
 
 
 import com.webApp.school.model.Task;
-import com.webApp.school.service.CourseService;
 import com.webApp.school.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -14,13 +12,10 @@ import org.springframework.web.bind.annotation.*;
 public class TaskController {
 
     private final TaskService taskService;
-    private final CourseService courseService;
 
     @Autowired
-    public TaskController(TaskService taskService,
-                          CourseService courseService) {
+    public TaskController(TaskService taskService) {
         this.taskService = taskService;
-        this.courseService = courseService;
     }
 
 
