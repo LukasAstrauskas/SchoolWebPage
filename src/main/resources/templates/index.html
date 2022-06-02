@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<!--xmlns:th="http://www.thymeleaf.org"-->
+
 <head>
     <div th:insert="fragments/general.html :: head" ></div>
     <title> Web App </title>
+    <link th:href="@{/css/main.css}" rel="stylesheet" />
 </head>
 <body>
 <header th:insert="fragments/general.html :: header">>
@@ -13,6 +14,8 @@
 <article>
 
     <div th:replace="fragments/general.html :: common"></div>
+    <h1> Hello! </h1>
+
 
 
 </article>

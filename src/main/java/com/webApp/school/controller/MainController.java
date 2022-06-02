@@ -24,6 +24,16 @@ public class MainController {
         return "index";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
+        return "logout";
+    }
+
     @GetMapping("/mainHall")
     public String homePage() {
         return "home";
@@ -36,7 +46,4 @@ public class MainController {
         model.addAttribute("user", user);
         return "profile";
     }
-
-
-
 }

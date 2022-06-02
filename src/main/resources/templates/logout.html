@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <div th:insert="fragments/general.html :: head"></div>
+    <title> Web App </title>
+    <link th:href="@{/css/login.css}" rel="stylesheet"/>
+</head>
+<body>
+<header th:insert="fragments/general.html :: header">>
+</header>
+
+
+<article>
+    <div id="login">
+<!--        <h3 class="text-center text-white pt-5">Login form</h3>-->
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" th:action="@{/logout}" action="" method="post">
+                            <h3 class="text-center text-info">Logout</h3>
+                            <div class="form-group d-flex justify-content-center">
+                                <input type="submit" name="submit" class="btn btn-info btn-md" value="Logout">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</article>
+
+<footer>
+
+</footer>
+<div th:insert="fragments/general.html :: script"></div>
+</body>
+</html>
